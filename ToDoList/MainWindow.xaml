@@ -2,21 +2,12 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
    Title="MainWindow" Height="969.776" Width="525">
-    <Grid x:Name="MyGrid"  Margin="0,0,-8,-170">
+    <Grid x:Name="MyGrid"  Margin="0,0,-8,-170" Loaded="MyGrid_Loaded" >
         <Button Content="jvkjv" HorizontalAlignment="Left" Height="44" Margin="437,550,0,0" VerticalAlignment="Top" Width="78" Click="Button_Click"/>
         <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="10,560,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="286"/>
-        <DatePicker x:Name="DatePicker1" HorizontalAlignment="Left" Margin="319,560,0,0" VerticalAlignment="Top" Background="#FF3C2B2B" ClipToBounds="True">
-            <DatePicker.BorderBrush>
-                <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
-                    <GradientStop Color="#FFA3AEB9" Offset="0"/>
-                    <GradientStop Color="#FF8399A9" Offset="0.375"/>
-                    <GradientStop Color="#FF718597" Offset="0.375"/>
-                    <GradientStop Color="#FF4FA4E4" Offset="1"/>
-                </LinearGradientBrush>
-            </DatePicker.BorderBrush>
-        </DatePicker>       
-    
-       
+        <DatePicker x:Name="DatePicker1" HorizontalAlignment="Left" Margin="325,560,0,0" VerticalAlignment="Top"/>
+
+
 
     </Grid>
 </Window>
