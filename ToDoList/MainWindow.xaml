@@ -4,11 +4,14 @@
    Title="MainWindow" Height="742.776" Width="525">
     <Grid x:Name="MyGrid"  Margin="0,0,-8,-5" Loaded="MyGrid_Loaded" >
         <Button Content="jvkjv" HorizontalAlignment="Left" Height="44" Margin="437,550,0,0" VerticalAlignment="Top" Width="78" Click="Button_Click"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="0,560,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="286"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="0,560,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="286" ScrollViewer.CanContentScroll="True"/>
         <DatePicker x:Name="DatePicker1" HorizontalAlignment="Left" Margin="325,560,0,0" VerticalAlignment="Top"/>
         <ScrollViewer HorizontalAlignment="Left" Height="545" Margin="10,0,0,0" VerticalAlignment="Top" Width="494" CanContentScroll="True" Grid.IsSharedSizeScope="True">
             <StackPanel x:Name="panel" HorizontalAlignment="Left" Height="526" VerticalAlignment="Top" Width="493" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Grid.IsSharedSizeScope="True" CanVerticallyScroll="True" CanHorizontallyScroll="True"/>
         </ScrollViewer>
+        <Label x:Name="label1" HorizontalAlignment="Left" Margin="77,605,0,0" VerticalAlignment="Top" Width="166">
+            <ContentControl Content="ContentControl"/>
+        </Label>
 
 
 

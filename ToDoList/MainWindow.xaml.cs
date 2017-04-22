@@ -27,6 +27,7 @@ namespace ToDoList
             InitializeComponent();
         }
         ArrayList textBox = new ArrayList();
+        ArrayList label = new ArrayList();
         int i = 0, tab = 1;
         public class Rek
         {
@@ -47,8 +48,23 @@ namespace ToDoList
             ((TextBox)textBox[i]).VerticalAlignment = VerticalAlignment.Top;
             ((TextBox)textBox[i]).TextWrapping = TextWrapping.Wrap;
             ((TextBox)textBox[i]).Margin = new Thickness(h, l, 0, 0);
+            ((TextBox)textBox[i]).IsEnabled = false;
             //MyGrid.Children.Add(((TextBox)textBox[i]));
             panel.Children.Add(((TextBox)textBox[i]));
+        }
+
+        void AddLabel(int i, ArrayList textBox, int h, int l,string date)
+        {
+
+            label.Add(new Label());
+            ((Label)label[i]).HorizontalAlignment = HorizontalAlignment.Left;
+            ((Label)label[i]).VerticalAlignment = VerticalAlignment.Top;
+            ((Label)label[i]).Margin = new Thickness(h, l, 0, 0);
+            ((Label)label[i]).Content = "--"+date+"--";
+            //MyGrid.Children.Add(((TextBox)textBox[i]));
+            panel.Children.Add(((Label)label[i]));
+
+            
         }
         void FileWrite(string text, string date)
         {
@@ -84,19 +100,22 @@ namespace ToDoList
             
 
         }
-        // void DelRek()
+       
         void WriteList(List<Rek> usr) {
             int j = 0;
-            foreach (Rek i in usr)
+            
+            foreach (Rek t in usr)
             {
 
+                    AddLabel(j, textBox, 5, tab,t.date.ToShortDateString().ToString());
                 AddTextBox(j, textBox, 1, tab);
-                //tab += 30;
-                ((TextBox)textBox[j]).Text = i.text;
+                
+                ((TextBox)textBox[j]).Text = t.text;
                 j++;
             }
             j = 0;
             textBox.Clear();
+            label.Clear();
             usr.Clear();
             tab = 0;
            
@@ -112,9 +131,10 @@ namespace ToDoList
             FileWrite(textBox1.Text, DatePicker1.Text.ToString());
 
             FillArr();
-            MyGrid.Children.Remove(textBox1);
+            panel.Children.Clear();
+
             WriteList(usr);
-            MyGrid.Children.Add((TextBox)textBox1);
+          
         }
 
         private void MyGrid_Loaded(object sender, RoutedEventArgs e)
