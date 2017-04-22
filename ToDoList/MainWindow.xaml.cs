@@ -47,8 +47,8 @@ namespace ToDoList
             ((TextBox)textBox[i]).VerticalAlignment = VerticalAlignment.Top;
             ((TextBox)textBox[i]).TextWrapping = TextWrapping.Wrap;
             ((TextBox)textBox[i]).Margin = new Thickness(h, l, 0, 0);
-            MyGrid.Children.Add(((TextBox)textBox[i]));
-
+            //MyGrid.Children.Add(((TextBox)textBox[i]));
+            panel.Children.Add(((TextBox)textBox[i]));
         }
         void FileWrite(string text, string date)
         {
@@ -81,11 +81,27 @@ namespace ToDoList
 
             read.Close();
             usr = usr.OrderBy(u1 => u1.date).ToList();
-
+            
 
         }
         // void DelRek()
+        void WriteList(List<Rek> usr) {
+            int j = 0;
+            foreach (Rek i in usr)
+            {
 
+                AddTextBox(j, textBox, 1, tab);
+                //tab += 30;
+                ((TextBox)textBox[j]).Text = i.text;
+                j++;
+            }
+            j = 0;
+            textBox.Clear();
+            usr.Clear();
+            tab = 0;
+           
+
+        }
 
 
 
@@ -95,27 +111,22 @@ namespace ToDoList
 
             FileWrite(textBox1.Text, DatePicker1.Text.ToString());
 
-            AddTextBox(i, textBox, 1, tab);
-            ((TextBox)textBox[i]).Text = textBox1.Text;
-            tab += 30;
-            i++;
+            FillArr();
+            MyGrid.Children.Remove(textBox1);
+            WriteList(usr);
+            MyGrid.Children.Add((TextBox)textBox1);
         }
 
         private void MyGrid_Loaded(object sender, RoutedEventArgs e)
         {
+            DatePicker1.Text = DateTime.Now.ToString();
             FillArr();
-            int j = 0;
-            foreach (Rek i in usr)
-            {
 
-                AddTextBox(j, textBox, 1, tab);
-                tab += 30;
-                ((TextBox)textBox[j]).Text = i.text;
-                j++;
-            }
-
-
+            WriteList(usr);
+           
         }
+
+       
 
 
     }
