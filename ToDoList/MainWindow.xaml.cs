@@ -46,8 +46,8 @@ namespace ToDoList
 
             textBox.Add(new TextBox());
             ((TextBox)textBox[i]).HorizontalAlignment = HorizontalAlignment.Left;
-            ((TextBox)textBox[i]).Height = 60;
-            ((TextBox)textBox[i]).Width = 346;
+             ((TextBox)textBox[i]).Height = 25;
+            ((TextBox)textBox[i]).Width = 450;
             ((TextBox)textBox[i]).VerticalAlignment = VerticalAlignment.Top;
             ((TextBox)textBox[i]).TextWrapping = TextWrapping.Wrap;
             ((TextBox)textBox[i]).Margin = new Thickness(h, l, 0, 0);
@@ -66,7 +66,7 @@ namespace ToDoList
             ((Label)label[i]).HorizontalAlignment = HorizontalAlignment.Left;
             ((Label)label[i]).VerticalAlignment = VerticalAlignment.Top;
             ((Label)label[i]).Margin = new Thickness(h, l, 0, 0);
-            ((Label)label[i]).Content = "--"+date+"--";
+            ((Label)label[i]).Content = "——————————————— " + date + " ———————————————";
             //MyGrid.Children.Add(((TextBox)textBox[i]));
             
             panel.Children.Add(((Label)label[i]));
@@ -116,7 +116,7 @@ namespace ToDoList
 
                     AddLabel(j, textBox, 5, tab,t.date.ToShortDateString().ToString());
                 AddTextBox(j, textBox, 1, tab);
-               
+                
                 ((TextBox)textBox[j]).Text = t.text;
                 j++;
                
@@ -156,7 +156,7 @@ namespace ToDoList
 
 
             WriteList(usr);
-
+          
           
         }
 
@@ -178,7 +178,7 @@ namespace ToDoList
             }
         }
 
- 
+       
 
 
 
