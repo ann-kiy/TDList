@@ -28,7 +28,10 @@ namespace ToDoList
         }
         ArrayList textBox = new ArrayList();
         ArrayList label = new ArrayList();
+        ArrayList checkBox = new ArrayList();
         int i = 0, tab = 1;
+        int n;
+        string StrChe;
         public class Rek
         {
             public DateTime date;
@@ -43,15 +46,18 @@ namespace ToDoList
 
             textBox.Add(new TextBox());
             ((TextBox)textBox[i]).HorizontalAlignment = HorizontalAlignment.Left;
-            ((TextBox)textBox[i]).Height = 20;
+            ((TextBox)textBox[i]).Height = 60;
             ((TextBox)textBox[i]).Width = 346;
             ((TextBox)textBox[i]).VerticalAlignment = VerticalAlignment.Top;
             ((TextBox)textBox[i]).TextWrapping = TextWrapping.Wrap;
             ((TextBox)textBox[i]).Margin = new Thickness(h, l, 0, 0);
+            ((TextBox)textBox[i]).VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+            ((TextBox)textBox[i]).KeyUp += textBox1_KeyUp;
             ((TextBox)textBox[i]).IsEnabled = false;
-            //MyGrid.Children.Add(((TextBox)textBox[i]));
             panel.Children.Add(((TextBox)textBox[i]));
         }
+
+        
 
         void AddLabel(int i, ArrayList textBox, int h, int l,string date)
         {
@@ -62,6 +68,7 @@ namespace ToDoList
             ((Label)label[i]).Margin = new Thickness(h, l, 0, 0);
             ((Label)label[i]).Content = "--"+date+"--";
             //MyGrid.Children.Add(((TextBox)textBox[i]));
+            
             panel.Children.Add(((Label)label[i]));
 
             
@@ -109,31 +116,47 @@ namespace ToDoList
 
                     AddLabel(j, textBox, 5, tab,t.date.ToShortDateString().ToString());
                 AddTextBox(j, textBox, 1, tab);
-                
+               
                 ((TextBox)textBox[j]).Text = t.text;
                 j++;
+               
             }
+           
             j = 0;
-            textBox.Clear();
-            label.Clear();
-            usr.Clear();
-            tab = 0;
+            n = textBox.Count;
+            //textBox.Clear();
+            //label.Clear();
+            //checkBox.Clear();
+            //usr.Clear();
+            //tab = 0;
            
 
         }
 
 
 
+
+        void ClearDate() {
+            textBox.Clear();
+            label.Clear();
+            checkBox.Clear();
+            usr.Clear();
+            tab = 0;
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            //n = textBox.Count;
+            ClearDate();
 
             FileWrite(textBox1.Text, DatePicker1.Text.ToString());
 
             FillArr();
             panel.Children.Clear();
 
+
             WriteList(usr);
+
           
         }
 
@@ -145,6 +168,82 @@ namespace ToDoList
             WriteList(usr);
            
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(n.ToString());
+            for (int i = 0; i<n; i++)
+            {
+                ((TextBox)textBox[i]).IsEnabled = true;
+            }
+        }
+
+ 
+
+
+
+
+        private void textBox1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                MessageBox.Show(((TextBox)e.OriginalSource).Text);
+
+                FileStream file = new FileStream("dataBase.txt", FileMode.Create, FileAccess.Write);
+                StreamWriter writer = new StreamWriter(file);
+                foreach (Rek t in usr)
+                {
+                   if ((t.text != ((TextBox)e.OriginalSource).Text))                      
+                    writer.WriteLine(t.text + "/" + t.date);
+
+                }
+
+
+                writer.Close();
+                ClearDate();
+                FileWrite(textBox1.Text, DatePicker1.Text.ToString());
+                FillArr();
+                panel.Children.Clear();
+                WriteList(usr);
+            }
+            else if (e.Key == Key.F12) {
+             
+                textBox1.Text = ((TextBox)e.OriginalSource).Text;
+                //DatePicker1.Text = usr[textBox.IndexOf()].date;
+                MessageBox.Show(((TextBox)e.OriginalSource).Text);
+                b3.Visibility = Visibility.Visible;
+                StrChe = ((TextBox)e.OriginalSource).Text;
+               
+            }
+
+           
+             
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            FileStream file = new FileStream("dataBase.txt", FileMode.Create, FileAccess.Write);
+            StreamWriter writer = new StreamWriter(file);
+            foreach (Rek t in usr)
+            {
+                if (t.text != StrChe)
+                    writer.WriteLine(t.text + "/" + t.date);
+                else
+                    writer.WriteLine(textBox1.Text + "/" + DatePicker1.Text.ToString());
+
+            }
+            writer.Close();
+
+            ClearDate();
+            FileWrite(textBox1.Text, DatePicker1.Text.ToString());
+            FillArr();
+            panel.Children.Clear();
+            WriteList(usr);
+
+        }
+
+    
+
 
        
 

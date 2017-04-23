@@ -3,15 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
    Title="MainWindow" Height="742.776" Width="525">
     <Grid x:Name="MyGrid"  Margin="0,0,-8,-5" Loaded="MyGrid_Loaded" >
-        <Button Content="jvkjv" HorizontalAlignment="Left" Height="44" Margin="437,550,0,0" VerticalAlignment="Top" Width="78" Click="Button_Click"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="0,560,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="286" ScrollViewer.CanContentScroll="True"/>
+        <Button Content="Добавить" HorizontalAlignment="Left" Height="23" Margin="437,560,0,0" VerticalAlignment="Top" Width="78" Click="Button_Click"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" ContextMenuService.ShowOnDisabled="True" Height="23" Margin="0,560,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="320" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto"    />
         <DatePicker x:Name="DatePicker1" HorizontalAlignment="Left" Margin="325,560,0,0" VerticalAlignment="Top"/>
-        <ScrollViewer HorizontalAlignment="Left" Height="545" Margin="10,0,0,0" VerticalAlignment="Top" Width="494" CanContentScroll="True" Grid.IsSharedSizeScope="True">
-            <StackPanel x:Name="panel" HorizontalAlignment="Left" Height="526" VerticalAlignment="Top" Width="493" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Grid.IsSharedSizeScope="True" CanVerticallyScroll="True" CanHorizontallyScroll="True"/>
+        <ScrollViewer x:Name="chek" HorizontalAlignment="Left" Height="555" VerticalAlignment="Top" Width="505" CanContentScroll="True" Grid.IsSharedSizeScope="True">
+
+            <StackPanel x:Name="panel" HorizontalAlignment="Left" Height="545" VerticalAlignment="Top" Width="495" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Grid.IsSharedSizeScope="True" CanVerticallyScroll="True" CanHorizontallyScroll="True"/>
+            
         </ScrollViewer>
-        <Label x:Name="label1" HorizontalAlignment="Left" Margin="77,605,0,0" VerticalAlignment="Top" Width="166">
-            <ContentControl Content="ContentControl"/>
-        </Label>
+        <Button Content="Редактировать" HorizontalAlignment="Left" Margin="424,609,0,0" VerticalAlignment="Top" Width="91" Click="Button_Click_1"/>
+        <StackPanel HorizontalAlignment="Left" Height="100" Margin="86,677,0,-60" VerticalAlignment="Top" Width="100"/>
+        <Button x:Name="b3" Content="save" HorizontalAlignment="Left" Margin="440,562,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2" Visibility="Hidden"/>
+
 
 
 
