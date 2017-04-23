@@ -15,16 +15,23 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Collections;
 
+
+
+
 namespace ToDoList
 {
+
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow :  System.Windows.Window
+
     {
         public MainWindow()
         {
             InitializeComponent();
+           
+
         }
         ArrayList textBox = new ArrayList();
         ArrayList label = new ArrayList();
@@ -32,6 +39,7 @@ namespace ToDoList
         int i = 0, tab = 1;
         int n;
         string StrChe;
+
         public class Rek
         {
             public DateTime date;
@@ -92,7 +100,7 @@ namespace ToDoList
 
             while (!read.EndOfStream) //Цикл длиться пока не будет достигнут конец файла
             {
-                str = read.ReadLine();
+                str = read.ReadLine();                
                 u1.date = new DateTime(int.Parse((str.Split('/')[1]).Split('.')[2].Split(' ')[0]), int.Parse((str.Split('/')[1]).Split('.')[1]), int.Parse((str.Split('/')[1]).Split('.')[0]));
                 u1.text = str.Split('/')[0];
                 usr.Add(u1);
@@ -103,7 +111,9 @@ namespace ToDoList
 
 
             read.Close();
-            usr = usr.OrderBy(u1 => u1.date).ToList();
+            
+
+            usr = usr.OrderBy(u1 => u1.date).ToList( );
             
 
         }
@@ -116,6 +126,12 @@ namespace ToDoList
 
                     AddLabel(j, textBox, 5, tab,t.date.ToShortDateString().ToString());
                 AddTextBox(j, textBox, 1, tab);
+                if (t.date == DateTime.Now.Date)
+                    ((TextBox)textBox[j]).Background = Brushes.Red;
+                else if ((t.date.DayOfYear - DateTime.Now.DayOfYear) >= 7)
+                    ((TextBox)textBox[j]).Background = Brushes.Green;
+                else
+                    ((TextBox)textBox[j]).Background = Brushes.Yellow;
                 
                 ((TextBox)textBox[j]).Text = t.text;
                 j++;
@@ -146,6 +162,7 @@ namespace ToDoList
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+           
             //n = textBox.Count;
             ClearDate();
 
@@ -156,6 +173,7 @@ namespace ToDoList
 
 
             WriteList(usr);
+            textBox1.Text = "";
           
           
         }
@@ -164,18 +182,36 @@ namespace ToDoList
         {
             DatePicker1.Text = DateTime.Now.ToString();
             FillArr();
+            FileStream file = new FileStream("dataBase.txt", FileMode.Create, FileAccess.Write);
+            StreamWriter writer = new StreamWriter(file);
+            foreach (Rek t in usr)
+            {
+                if (t.date >=DateTime.Now.Date)
+                    writer.WriteLine(t.text + "/" + t.date);
 
+            }
+
+
+            writer.Close();
+            ClearDate();
+
+            FillArr();
+           
             WriteList(usr);
+
+            
            
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+           
             MessageBox.Show(n.ToString());
             for (int i = 0; i<n; i++)
             {
                 ((TextBox)textBox[i]).IsEnabled = true;
             }
+            textBox1.Text = "";
         }
 
        
@@ -201,7 +237,7 @@ namespace ToDoList
 
                 writer.Close();
                 ClearDate();
-                FileWrite(textBox1.Text, DatePicker1.Text.ToString());
+               
                 FillArr();
                 panel.Children.Clear();
                 WriteList(usr);
@@ -211,6 +247,7 @@ namespace ToDoList
                 textBox1.Text = ((TextBox)e.OriginalSource).Text;
                 //DatePicker1.Text = usr[textBox.IndexOf()].date;
                 MessageBox.Show(((TextBox)e.OriginalSource).Text);
+                b1.Visibility = Visibility.Hidden;
                 b3.Visibility = Visibility.Visible;
                 StrChe = ((TextBox)e.OriginalSource).Text;
                
@@ -222,6 +259,7 @@ namespace ToDoList
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
+            textBox1.Text= "";
             FileStream file = new FileStream("dataBase.txt", FileMode.Create, FileAccess.Write);
             StreamWriter writer = new StreamWriter(file);
             foreach (Rek t in usr)
@@ -235,11 +273,34 @@ namespace ToDoList
             writer.Close();
 
             ClearDate();
-            FileWrite(textBox1.Text, DatePicker1.Text.ToString());
+            
             FillArr();
             panel.Children.Clear();
             WriteList(usr);
 
+        }
+
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            if (this.WindowState == WindowState.Minimized)
+            {
+
+                this.Visibility = Visibility.Hidden;
+                this.ShowInTaskbar = false;
+                this.WindowState = WindowState.Normal;
+
+            }
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            if (this.Visibility == Visibility.Hidden)
+            {
+                this.ShowInTaskbar = true;
+                this.Visibility = Visibility.Visible;
+                this.Activate();
+
+            }
         }
 
     
