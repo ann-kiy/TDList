@@ -27,10 +27,12 @@ namespace ToDoList
     public partial class MainWindow :  System.Windows.Window
 
     {
+        System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
         public MainWindow()
         {
             InitializeComponent();
-           
+            InitializeComponent();
+            ni.Icon = new System.Drawing.Icon("C:\\Users\\админ\\Documents\\Visual Studio 2012\\Projects\\ToDoList\\ToDoList\\50-512.ico");
 
         }
         ArrayList textBox = new ArrayList();
@@ -162,18 +164,21 @@ namespace ToDoList
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-           
-            //n = textBox.Count;
-            ClearDate();
+            if ((DatePicker1.SelectedDate >DateTime.Now.Date)&&(textBox1.Text!=""))
+            {
+                //n = textBox.Count;
+                ClearDate();
 
-            FileWrite(textBox1.Text, DatePicker1.Text.ToString());
+                FileWrite(textBox1.Text, DatePicker1.Text.ToString());
 
-            FillArr();
-            panel.Children.Clear();
+                FillArr();
+                panel.Children.Clear();
 
 
-            WriteList(usr);
-            textBox1.Text = "";
+                WriteList(usr);
+                textBox1.Text = "";
+            }
+            else MessageBox.Show("Введите коректные данные!");
           
           
         }
@@ -282,27 +287,16 @@ namespace ToDoList
 
         private void Window_StateChanged(object sender, EventArgs e)
         {
-            if (this.WindowState == WindowState.Minimized)
+            ni.Visible = true;
+            ni.Click += (sndr, args) =>
             {
-
-                this.Visibility = Visibility.Hidden;
-                this.ShowInTaskbar = false;
+                this.Show();
                 this.WindowState = WindowState.Normal;
-
-            }
+            };
+            this.Hide();
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-            if (this.Visibility == Visibility.Hidden)
-            {
-                this.ShowInTaskbar = true;
-                this.Visibility = Visibility.Visible;
-                this.Activate();
-
-            }
-        }
-
+       
     
 
 
