@@ -32,7 +32,7 @@ namespace ToDoList
         {
             InitializeComponent();
             InitializeComponent();
-            ni.Icon = new System.Drawing.Icon("C:\\Users\\админ\\Documents\\Visual Studio 2012\\Projects\\ToDoList\\ToDoList\\50-512.ico");
+            ni.Icon = new System.Drawing.Icon("50-512.ico");
 
         }
         ArrayList textBox = new ArrayList();
@@ -294,6 +294,11 @@ namespace ToDoList
                 this.WindowState = WindowState.Normal;
             };
             this.Hide();
+        }
+
+        private void textBox1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
 
        
