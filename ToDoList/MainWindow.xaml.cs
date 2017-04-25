@@ -24,15 +24,14 @@ namespace ToDoList
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow :  System.Windows.Window
-
+    public partial class MainWindow : System.Windows.Window
     {
         System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
         public MainWindow()
         {
             InitializeComponent();
             InitializeComponent();
-            ni.Icon = new System.Drawing.Icon("50-512.ico");
+            ni.Icon = new System.Drawing.Icon("C:\\Users\\админ\\Documents\\Visual Studio 2012\\Projects\\ToDoList\\ToDoList\\50-512.ico");
 
         }
         ArrayList textBox = new ArrayList();
@@ -56,20 +55,23 @@ namespace ToDoList
 
             textBox.Add(new TextBox());
             ((TextBox)textBox[i]).HorizontalAlignment = HorizontalAlignment.Left;
-             ((TextBox)textBox[i]).Height = 25;
+            ((TextBox)textBox[i]).Height = 60;
             ((TextBox)textBox[i]).Width = 450;
             ((TextBox)textBox[i]).VerticalAlignment = VerticalAlignment.Top;
             ((TextBox)textBox[i]).TextWrapping = TextWrapping.Wrap;
             ((TextBox)textBox[i]).Margin = new Thickness(h, l, 0, 0);
             ((TextBox)textBox[i]).VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             ((TextBox)textBox[i]).KeyUp += textBox1_KeyUp;
+            ((TextBox)textBox[i]).BorderBrush = Brushes.Black;
+            ((TextBox)textBox[i]).SelectionBrush = Brushes.Red;
+            ((TextBox)textBox[i]).BorderThickness = new Thickness(2, 2, 2, 2);
+
             ((TextBox)textBox[i]).IsReadOnly = true;
             panel.Children.Add(((TextBox)textBox[i]));
         }
 
-        
 
-        void AddLabel(int i, ArrayList textBox, int h, int l,string date)
+        void AddLabel(int i, ArrayList textBox, int h, int l, string date)
         {
 
             label.Add(new Label());
@@ -78,10 +80,10 @@ namespace ToDoList
             ((Label)label[i]).Margin = new Thickness(h, l, 0, 0);
             ((Label)label[i]).Content = "——————————————— " + date + " ———————————————";
             //MyGrid.Children.Add(((TextBox)textBox[i]));
-            
+
             panel.Children.Add(((Label)label[i]));
 
-            
+
         }
         void FileWrite(string text, string date)
         {
@@ -89,7 +91,7 @@ namespace ToDoList
             FileStream file = new FileStream("dataBase.txt", FileMode.Append, FileAccess.Write);
             StreamWriter writer = new StreamWriter(file);
 
-            writer.WriteLine(text+"/"+date);
+            writer.WriteLine(text + "/" + date);
             writer.Close();
 
         }
@@ -102,36 +104,36 @@ namespace ToDoList
 
             while ((!read.EndOfStream)) //Цикл длиться пока не будет достигнут конец файла
             {
-                str = read.ReadLine();                
-                if (str != "")
-                {
-                u1.date = new DateTime(int.Parse((str.Split('/')[1]).Split('.')[2].Split(' ')[0]), int.Parse((str.Split('/')[1]).Split('.')[1]), int.Parse((str.Split('/')[1]).Split('.')[0]));
-                u1.text = str.Split('/')[0];
-                usr.Add(u1);
-                u1 = new Rek();
+                str = read.ReadLine();
+                if (str == "")
+                    break;
+                
+                    u1.date = new DateTime(int.Parse((str.Split('/')[1]).Split('.')[2].Split(' ')[0]), int.Parse((str.Split('/')[1]).Split('.')[1]), int.Parse((str.Split('/')[1]).Split('.')[0]));
+                    u1.text = str.Split('/')[0];
+                    usr.Add(u1);
+                    u1 = new Rek();
 
-                i++;
-            }
-                else
-                    MessageBox.Show("У нас нет записей");
+                    i++;
+               
             }
 
 
             read.Close();
-            
 
-            usr = usr.OrderBy(u1 => u1.date).ToList( );
-            
+
+            usr = usr.OrderBy(u1 => u1.date).ToList();
+
 
         }
-       
-        void WriteList(List<Rek> usr) {
+
+        void WriteList(List<Rek> usr)
+        {
             int j = 0;
-            
+
             foreach (Rek t in usr)
             {
 
-                    AddLabel(j, textBox, 5, tab,t.date.ToShortDateString().ToString());
+                AddLabel(j, textBox, 5, tab, t.date.ToShortDateString().ToString());
                 AddTextBox(j, textBox, 1, tab);
                 if (t.date == DateTime.Now.Date)
                     ((TextBox)textBox[j]).Background = Brushes.Red;
@@ -139,12 +141,12 @@ namespace ToDoList
                     ((TextBox)textBox[j]).Background = Brushes.Green;
                 else
                     ((TextBox)textBox[j]).Background = Brushes.Yellow;
-                
+
                 ((TextBox)textBox[j]).Text = t.text;
                 j++;
-               
+
             }
-           
+
             j = 0;
             n = textBox.Count;
             //textBox.Clear();
@@ -152,14 +154,15 @@ namespace ToDoList
             //checkBox.Clear();
             //usr.Clear();
             //tab = 0;
-           
+
 
         }
 
 
 
 
-        void ClearDate() {
+        void ClearDate()
+        {
             textBox.Clear();
             label.Clear();
             checkBox.Clear();
@@ -169,7 +172,7 @@ namespace ToDoList
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if ((DatePicker1.SelectedDate >=DateTime.Now.Date)&&(textBox1.Text!=""))
+            if ((DatePicker1.SelectedDate >= DateTime.Now.Date) && (textBox1.Text != ""))
             {
                 //n = textBox.Count;
                 ClearDate();
@@ -184,19 +187,19 @@ namespace ToDoList
                 textBox1.Text = "";
             }
             else MessageBox.Show("Введите коректные данные!");
-          
-          
+
+
         }
 
         private void MyGrid_Loaded(object sender, RoutedEventArgs e)
         {
             DatePicker1.Text = DateTime.Now.ToString();
             FillArr();
-            FileStream file = new FileStream("dataBase.txt", FileMode.Append, FileAccess.Write);
+            FileStream file = new FileStream("dataBase.txt", FileMode.Open, FileAccess.Write);
             StreamWriter writer = new StreamWriter(file);
             foreach (Rek t in usr)
             {
-                if (t.date >=DateTime.Now.Date)
+                if (t.date >= DateTime.Now.Date)
                     writer.WriteLine(t.text + "/" + t.date);
 
             }
@@ -206,15 +209,15 @@ namespace ToDoList
             ClearDate();
 
             FillArr();
-           
+
             WriteList(usr);
 
-            
-           
+
+
         }
 
 
-       
+
 
 
 
@@ -230,37 +233,38 @@ namespace ToDoList
                 StreamWriter writer = new StreamWriter(file);
                 foreach (Rek t in usr)
                 {
-                   if ((t.text != ((TextBox)e.OriginalSource).Text))                      
-                    writer.WriteLine(t.text + "/" + t.date);
+                    if ((t.text != ((TextBox)e.OriginalSource).Text))
+                        writer.WriteLine(t.text + "/" + t.date);
 
                 }
 
 
                 writer.Close();
                 ClearDate();
-               
+
                 FillArr();
                 panel.Children.Clear();
                 WriteList(usr);
             }
-            else if (e.Key == Key.F12) {
-             
+            else if (e.Key == Key.F12)
+            {
+
                 textBox1.Text = ((TextBox)e.OriginalSource).Text;
                 //DatePicker1.Text = usr[textBox.IndexOf()].date;
                 MessageBox.Show(((TextBox)e.OriginalSource).Text);
                 b1.Visibility = Visibility.Hidden;
                 b3.Visibility = Visibility.Visible;
                 StrChe = ((TextBox)e.OriginalSource).Text;
-               
+
             }
 
-           
-             
+
+
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            textBox1.Text= "";
+           
             FileStream file = new FileStream("dataBase.txt", FileMode.Create, FileAccess.Write);
             StreamWriter writer = new StreamWriter(file);
             foreach (Rek t in usr)
@@ -271,13 +275,16 @@ namespace ToDoList
                     writer.WriteLine(textBox1.Text + "/" + DatePicker1.Text.ToString());
 
             }
+            b1.Visibility = Visibility.Visible;
+            b3.Visibility = Visibility.Hidden;
             writer.Close();
 
             ClearDate();
-            
+
             FillArr();
             panel.Children.Clear();
             WriteList(usr);
+            textBox1.Text = "";
 
         }
 
@@ -292,16 +299,13 @@ namespace ToDoList
             this.Hide();
         }
 
-        private void textBox1_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-       
-    
+      
 
 
-       
+
+
+
+
 
 
     }
