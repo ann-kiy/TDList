@@ -32,7 +32,7 @@ namespace ToDoList
         {
             InitializeComponent();
             InitializeComponent();
-            ni.Icon = new System.Drawing.Icon("C:\\Users\\админ\\Documents\\Visual Studio 2012\\Projects\\ToDoList\\ToDoList\\50-512.ico");
+            ni.Icon = new System.Drawing.Icon("50-512.ico");
 
         }
         ArrayList textBox = new ArrayList();
@@ -62,7 +62,7 @@ namespace ToDoList
             ((TextBox)textBox[i]).TextWrapping = TextWrapping.Wrap;
             ((TextBox)textBox[i]).Margin = new Thickness(h, l, 0, 0);
             ((TextBox)textBox[i]).VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-            ((TextBox)textBox[i]).KeyUp += textBox1_KeyUp;           
+            ((TextBox)textBox[i]).KeyUp += textBox1_KeyUp;
             ((TextBox)textBox[i]).IsReadOnly = true;
             panel.Children.Add(((TextBox)textBox[i]));
         }
@@ -102,16 +102,16 @@ namespace ToDoList
 
             while ((!read.EndOfStream)) //Цикл длиться пока не будет достигнут конец файла
             {
-                str = read.ReadLine();
+                str = read.ReadLine();                
                 if (str != "")
                 {
-                    u1.date = new DateTime(int.Parse((str.Split('/')[1]).Split('.')[2].Split(' ')[0]), int.Parse((str.Split('/')[1]).Split('.')[1]), int.Parse((str.Split('/')[1]).Split('.')[0]));
-                    u1.text = str.Split('/')[0];
-                    usr.Add(u1);
-                    u1 = new Rek();
+                u1.date = new DateTime(int.Parse((str.Split('/')[1]).Split('.')[2].Split(' ')[0]), int.Parse((str.Split('/')[1]).Split('.')[1]), int.Parse((str.Split('/')[1]).Split('.')[0]));
+                u1.text = str.Split('/')[0];
+                usr.Add(u1);
+                u1 = new Rek();
 
-                    i++;
-                }
+                i++;
+            }
                 else
                     MessageBox.Show("У нас нет записей");
             }
@@ -213,7 +213,7 @@ namespace ToDoList
            
         }
 
-        
+
        
 
 
@@ -290,6 +290,11 @@ namespace ToDoList
                 this.WindowState = WindowState.Normal;
             };
             this.Hide();
+        }
+
+        private void textBox1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
 
        
