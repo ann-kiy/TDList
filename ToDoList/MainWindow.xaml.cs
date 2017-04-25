@@ -62,8 +62,8 @@ namespace ToDoList
             ((TextBox)textBox[i]).TextWrapping = TextWrapping.Wrap;
             ((TextBox)textBox[i]).Margin = new Thickness(h, l, 0, 0);
             ((TextBox)textBox[i]).VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-            ((TextBox)textBox[i]).KeyUp += textBox1_KeyUp;
-            ((TextBox)textBox[i]).IsEnabled = false;
+            ((TextBox)textBox[i]).KeyUp += textBox1_KeyUp;           
+            ((TextBox)textBox[i]).IsReadOnly = true;
             panel.Children.Add(((TextBox)textBox[i]));
         }
 
@@ -96,19 +96,24 @@ namespace ToDoList
 
         void FillArr()
         {
-            FileStream file = new FileStream("dataBase.txt", FileMode.Open, FileAccess.Read);
+            FileStream file = new FileStream("dataBase.txt", FileMode.OpenOrCreate, FileAccess.Read);
             StreamReader read = new StreamReader(file);
             string str;
 
-            while (!read.EndOfStream) //Цикл длиться пока не будет достигнут конец файла
+            while ((!read.EndOfStream)) //Цикл длиться пока не будет достигнут конец файла
             {
-                str = read.ReadLine();                
-                u1.date = new DateTime(int.Parse((str.Split('/')[1]).Split('.')[2].Split(' ')[0]), int.Parse((str.Split('/')[1]).Split('.')[1]), int.Parse((str.Split('/')[1]).Split('.')[0]));
-                u1.text = str.Split('/')[0];
-                usr.Add(u1);
-                u1 = new Rek();
+                str = read.ReadLine();
+                if (str != "")
+                {
+                    u1.date = new DateTime(int.Parse((str.Split('/')[1]).Split('.')[2].Split(' ')[0]), int.Parse((str.Split('/')[1]).Split('.')[1]), int.Parse((str.Split('/')[1]).Split('.')[0]));
+                    u1.text = str.Split('/')[0];
+                    usr.Add(u1);
+                    u1 = new Rek();
 
-                i++;
+                    i++;
+                }
+                else
+                    MessageBox.Show("У нас нет записей");
             }
 
 
@@ -164,7 +169,7 @@ namespace ToDoList
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if ((DatePicker1.SelectedDate >DateTime.Now.Date)&&(textBox1.Text!=""))
+            if ((DatePicker1.SelectedDate >=DateTime.Now.Date)&&(textBox1.Text!=""))
             {
                 //n = textBox.Count;
                 ClearDate();
@@ -187,7 +192,7 @@ namespace ToDoList
         {
             DatePicker1.Text = DateTime.Now.ToString();
             FillArr();
-            FileStream file = new FileStream("dataBase.txt", FileMode.Create, FileAccess.Write);
+            FileStream file = new FileStream("dataBase.txt", FileMode.Append, FileAccess.Write);
             StreamWriter writer = new StreamWriter(file);
             foreach (Rek t in usr)
             {
@@ -208,17 +213,7 @@ namespace ToDoList
            
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-           
-            MessageBox.Show(n.ToString());
-            for (int i = 0; i<n; i++)
-            {
-                ((TextBox)textBox[i]).IsEnabled = true;
-            }
-            textBox1.Text = "";
-        }
-
+        
        
 
 
@@ -228,6 +223,7 @@ namespace ToDoList
         {
             if (e.Key == Key.Delete)
             {
+
                 MessageBox.Show(((TextBox)e.OriginalSource).Text);
 
                 FileStream file = new FileStream("dataBase.txt", FileMode.Create, FileAccess.Write);
