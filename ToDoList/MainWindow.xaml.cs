@@ -136,7 +136,7 @@ namespace ToDoList
                 AddLabel(j, textBox, 5, tab, t.date.ToShortDateString().ToString());
                 AddTextBox(j, textBox, 1, tab);
                 if (t.date == DateTime.Now.Date)
-                    ((TextBox)textBox[j]).Background = Brushes.Red;
+                    ((TextBox)textBox[j]).Background = Brushes.OrangeRed;
                 else if ((t.date.DayOfYear - DateTime.Now.DayOfYear) >= 7)
                     ((TextBox)textBox[j]).Background = Brushes.Green;
                 else
@@ -310,6 +310,6 @@ namespace ToDoList
 
     }
 
-
+    //Comic Sans MS
 }
 
