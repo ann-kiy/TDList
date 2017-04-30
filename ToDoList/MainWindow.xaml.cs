@@ -31,7 +31,7 @@ namespace ToDoList
         {
             InitializeComponent();
             InitializeComponent();
-            ni.Icon = new System.Drawing.Icon("50-512.ico");
+            ni.Icon = new System.Drawing.Icon("../../50-512.ico");
 
         }
         ArrayList textBox = new ArrayList();

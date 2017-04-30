@@ -1,4 +1,4 @@
-﻿<Window
+﻿<Window x:Class="ToDoList.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
    Title="To Do List" Height="678.776" Width="522.667" Icon="50-512.ico" StateChanged="Window_StateChanged" ContentStringFormat="" Background="#FFAEFB8A" MinHeight="679" MinWidth="523" MaxWidth="523" MaxHeight="679">
