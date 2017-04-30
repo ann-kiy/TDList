@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using System.Collections;
+using System.Windows.Media.Animation;
 
 
 
@@ -26,11 +27,21 @@ namespace ToDoList
     /// </summary>
     public partial class MainWindow : System.Windows.Window
     {
+
+        DoubleAnimation anim;
+        int left;
+        int top;
+        DependencyProperty prop;
+        int end;
         System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
         public MainWindow()
         {
             InitializeComponent();
-            InitializeComponent();
+            TrayPos tpos = new TrayPos();
+            tpos.getXY((int)this.Width, (int)this.Height, out top, out left, out prop, out end);
+            this.Top = top;
+            this.Left = left;
+            anim = new DoubleAnimation(end, TimeSpan.FromSeconds(1));
             ni.Icon = new System.Drawing.Icon("../../50-512.ico");
 
         }
@@ -193,6 +204,8 @@ namespace ToDoList
 
         private void MyGrid_Loaded(object sender, RoutedEventArgs e)
         {
+            AnimationClock clock = anim.CreateClock();
+            this.ApplyAnimationClock(prop, clock);
             DatePicker1.Text = DateTime.Now.ToString();
             FillArr();
             FileStream file = new FileStream("dataBase.txt", FileMode.Open, FileAccess.Write);
