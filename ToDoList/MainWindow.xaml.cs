@@ -314,19 +314,17 @@ namespace ToDoList
             ni.Click += (sndr, args) =>
             {
                 this.Show();
+                ni.Visible = false;
                 this.WindowState = WindowState.Normal;
             };
             this.Hide();
         }
 
-      
-
-
-
-
-
-
-
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            ni.Visible = false;
+        }
 
     }
 
