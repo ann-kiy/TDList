@@ -136,7 +136,7 @@ namespace ToDoList
             read.Close();
 
 
-            usr = usr.OrderBy(u1 => u1.date).ToList();
+            //usr = usr.OrderBy(u1 => u1.date).ToList();
 
 
         }
@@ -207,6 +207,7 @@ namespace ToDoList
             AnimationClock clock = anim.CreateClock();
             this.ApplyAnimationClock(prop, clock);
             DatePicker1.Text = DateTime.Now.ToString();
+            dat2.Text = "Выберите дату";
             FillArr();
             FileStream file = new FileStream("../../dataBase.txt", FileMode.Open, FileAccess.Write);
             StreamWriter writer = new StreamWriter(file);
@@ -331,6 +332,31 @@ namespace ToDoList
         private void textBox1_SelectionChanged(object sender, RoutedEventArgs e)
         {
             ((TextBox)e.OriginalSource).Opacity = 1;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (combobox.SelectedIndex == 1)
+            {
+                textBox.Clear();
+                label.Clear();
+                checkBox.Clear();
+
+                tab = 0;
+                //FillArr();
+                //MessageBox.Show(usr.OrderBy(u1 => u1.date == dat2.SelectedDate).Count().ToString());
+                //usr = (usr.FindAll(u1 => u1.date == dat2.SelectedDate));
+                panel.Children.Clear();
+                WriteList((usr.FindAll(u1 => u1.date == dat2.SelectedDate)));
+
+            }
+            else if (combobox.SelectedIndex == 0)
+            {
+                panel.Children.Clear();
+                usr = usr.OrderBy(u1 => u1.date).ToList();
+                WriteList(usr);
+            }
+
         }
 
 
