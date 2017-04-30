@@ -300,6 +300,7 @@ namespace ToDoList
             ni.Click += (sndr, args) =>
             {
                 this.Show();
+                ni.Visible = false;
                 this.WindowState = WindowState.Normal;
             };
             this.Hide();
