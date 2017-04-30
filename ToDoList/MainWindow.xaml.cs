@@ -31,7 +31,7 @@ namespace ToDoList
         {
             InitializeComponent();
             InitializeComponent();
-            ni.Icon = new System.Drawing.Icon("C:\\Users\\админ\\Documents\\Visual Studio 2012\\Projects\\ToDoList\\ToDoList\\50-512.ico");
+            ni.Icon = new System.Drawing.Icon("50-512.ico");
 
         }
         ArrayList textBox = new ArrayList();
@@ -62,9 +62,9 @@ namespace ToDoList
             ((TextBox)textBox[i]).Margin = new Thickness(h, l, 0, 0);
             ((TextBox)textBox[i]).VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             ((TextBox)textBox[i]).KeyUp += textBox1_KeyUp;
-            ((TextBox)textBox[i]).BorderBrush = Brushes.Black;
+            ((TextBox)textBox[i]).BorderBrush = Brushes.DarkGreen;
             ((TextBox)textBox[i]).SelectionBrush = Brushes.Red;
-            ((TextBox)textBox[i]).BorderThickness = new Thickness(2, 2, 2, 2);
+            ((TextBox)textBox[i]).BorderThickness = new Thickness(1, 1, 1, 1);
 
             ((TextBox)textBox[i]).IsReadOnly = true;
             panel.Children.Add(((TextBox)textBox[i]));
@@ -136,7 +136,7 @@ namespace ToDoList
                 AddLabel(j, textBox, 5, tab, t.date.ToShortDateString().ToString());
                 AddTextBox(j, textBox, 1, tab);
                 if (t.date == DateTime.Now.Date)
-                    ((TextBox)textBox[j]).Background = Brushes.Red;
+                    ((TextBox)textBox[j]).Background = Brushes.OrangeRed;
                 else if ((t.date.DayOfYear - DateTime.Now.DayOfYear) >= 7)
                     ((TextBox)textBox[j]).Background = Brushes.Green;
                 else
@@ -317,6 +317,6 @@ namespace ToDoList
 
     }
 
-
+    //Comic Sans MS
 }
 
