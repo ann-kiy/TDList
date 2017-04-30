@@ -227,64 +227,71 @@ namespace ToDoList
             if (e.Key == Key.Delete)
             {
 
-                MessageBox.Show(((TextBox)e.OriginalSource).Text);
+                if (MessageBox.Show("Вы точно хотите удалить запись?", "Удаление", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
+                {
+
+                    FileStream file = new FileStream("dataBase.txt", FileMode.Create, FileAccess.Write);
+                    StreamWriter writer = new StreamWriter(file);
+                    foreach (Rek t in usr)
+                    {
+                        if ((t.text != ((TextBox)e.OriginalSource).Text))
+                            writer.WriteLine(t.text + "/" + t.date);
+
+                    }
+
+
+                    writer.Close();
+                    ClearDate();
+
+                    FillArr();
+                    panel.Children.Clear();
+                    WriteList(usr);
+                }
+                }
+            else if (e.Key == Key.F12)
+            {
+                
+
+                   
+                    //DatePicker1.Text = usr[textBox.IndexOf()].date;
+                    MessageBox.Show(((TextBox)e.OriginalSource).Text);
+                    b1.Visibility = Visibility.Hidden;
+                    b3.Visibility = Visibility.Visible;
+                    StrChe = ((TextBox)e.OriginalSource).Text;
+
+                }
+
+            
+
+            }
+        
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Вы точно хотите изменить  запись?", "Редактирование", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
+            {
 
                 FileStream file = new FileStream("dataBase.txt", FileMode.Create, FileAccess.Write);
                 StreamWriter writer = new StreamWriter(file);
                 foreach (Rek t in usr)
                 {
-                    if ((t.text != ((TextBox)e.OriginalSource).Text))
+                    if (t.text != StrChe)
                         writer.WriteLine(t.text + "/" + t.date);
+                    else
+                        writer.WriteLine(textBox1.Text + "/" + DatePicker1.Text.ToString());
 
                 }
-
-
+                b1.Visibility = Visibility.Visible;
+                b3.Visibility = Visibility.Hidden;
                 writer.Close();
+
                 ClearDate();
 
                 FillArr();
                 panel.Children.Clear();
                 WriteList(usr);
+                textBox1.Text = "";
             }
-            else if (e.Key == Key.F12)
-            {
-
-                textBox1.Text = ((TextBox)e.OriginalSource).Text;
-                //DatePicker1.Text = usr[textBox.IndexOf()].date;
-                MessageBox.Show(((TextBox)e.OriginalSource).Text);
-                b1.Visibility = Visibility.Hidden;
-                b3.Visibility = Visibility.Visible;
-                StrChe = ((TextBox)e.OriginalSource).Text;
-
-            }
-
-
-
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-           
-            FileStream file = new FileStream("dataBase.txt", FileMode.Create, FileAccess.Write);
-            StreamWriter writer = new StreamWriter(file);
-            foreach (Rek t in usr)
-            {
-                if (t.text != StrChe)
-                    writer.WriteLine(t.text + "/" + t.date);
-                else
-                    writer.WriteLine(textBox1.Text + "/" + DatePicker1.Text.ToString());
-
-            }
-            b1.Visibility = Visibility.Visible;
-            b3.Visibility = Visibility.Hidden;
-            writer.Close();
-
-            ClearDate();
-
-            FillArr();
-            panel.Children.Clear();
-            WriteList(usr);
-            textBox1.Text = "";
 
         }
 
