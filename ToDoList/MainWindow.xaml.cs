@@ -306,14 +306,11 @@ namespace ToDoList
             this.Hide();
         }
 
-      
-
-
-
-
-
-
-
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            ni.Visible = false;
+        }
 
     }
 
