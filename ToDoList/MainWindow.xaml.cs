@@ -48,7 +48,7 @@ namespace ToDoList
         ArrayList textBox = new ArrayList();
         ArrayList label = new ArrayList();
         ArrayList checkBox = new ArrayList();
-        int i = 0, tab = 1;
+        int i = 0, tab = 70;
         int n;
         string StrChe;
 
@@ -66,18 +66,19 @@ namespace ToDoList
 
             textBox.Add(new TextBox());
             ((TextBox)textBox[i]).HorizontalAlignment = HorizontalAlignment.Left;
-            ((TextBox)textBox[i]).Height = 60;
-            ((TextBox)textBox[i]).Width = 450;
+            ((TextBox)textBox[i]).Height = 35;
+            ((TextBox)textBox[i]).Width = 350;
             ((TextBox)textBox[i]).VerticalAlignment = VerticalAlignment.Top;
             ((TextBox)textBox[i]).TextWrapping = TextWrapping.Wrap;
             ((TextBox)textBox[i]).Margin = new Thickness(h, l, 0, 0);
             ((TextBox)textBox[i]).VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             ((TextBox)textBox[i]).KeyUp += textBox1_KeyUp;
-            ((TextBox)textBox[i]).BorderBrush = Brushes.DarkGreen;
-            ((TextBox)textBox[i]).SelectionBrush = Brushes.Red;
-            ((TextBox)textBox[i]).BorderThickness = new Thickness(1, 1, 1, 1);
-
-            ((TextBox)textBox[i]).IsReadOnly = true;
+            ((TextBox)textBox[i]).BorderBrush = new SolidColorBrush();
+            ((TextBox)textBox[i]).SelectionBrush = Brushes.White;           
+            ((TextBox)textBox[i]).BorderThickness = new Thickness(2, 2, 2, 2);
+            ((TextBox)textBox[i]).IsReadOnly = true;                   
+            ((TextBox)textBox[i]).Opacity = 0.7;
+            
             panel.Children.Add(((TextBox)textBox[i]));
         }
 
@@ -89,7 +90,10 @@ namespace ToDoList
             ((Label)label[i]).HorizontalAlignment = HorizontalAlignment.Left;
             ((Label)label[i]).VerticalAlignment = VerticalAlignment.Top;
             ((Label)label[i]).Margin = new Thickness(h, l, 0, 0);
-            ((Label)label[i]).Content = "——————————————— " + date + " ———————————————";
+            ((Label)label[i]).FontSize = 12;
+            ((Label)label[i]).FontWeight = FontWeights.Bold;
+            ((Label)label[i]).Foreground = Brushes.Gray;
+            ((Label)label[i]).Content = "———————————" + date + " ———————————";
             //MyGrid.Children.Add(((TextBox)textBox[i]));
 
             panel.Children.Add(((Label)label[i]));
@@ -99,7 +103,7 @@ namespace ToDoList
         void FileWrite(string text, string date)
         {
 
-            FileStream file = new FileStream("dataBase.txt", FileMode.Append, FileAccess.Write);
+            FileStream file = new FileStream("../../dataBase.txt", FileMode.Append, FileAccess.Write);
             StreamWriter writer = new StreamWriter(file);
 
             writer.WriteLine(text + "/" + date);
@@ -109,7 +113,7 @@ namespace ToDoList
 
         void FillArr()
         {
-            FileStream file = new FileStream("dataBase.txt", FileMode.OpenOrCreate, FileAccess.Read);
+            FileStream file = new FileStream("../../dataBase.txt", FileMode.OpenOrCreate, FileAccess.Read);
             StreamReader read = new StreamReader(file);
             string str;
 
@@ -144,7 +148,7 @@ namespace ToDoList
             foreach (Rek t in usr)
             {
 
-                AddLabel(j, textBox, 5, tab, t.date.ToShortDateString().ToString());
+                AddLabel(j, textBox, 1, tab, t.date.ToShortDateString().ToString());
                 AddTextBox(j, textBox, 1, tab);
                 if (t.date == DateTime.Now.Date)
                     ((TextBox)textBox[j]).Background = Brushes.OrangeRed;
@@ -160,11 +164,7 @@ namespace ToDoList
 
             j = 0;
             n = textBox.Count;
-            //textBox.Clear();
-            //label.Clear();
-            //checkBox.Clear();
-            //usr.Clear();
-            //tab = 0;
+           
 
 
         }
@@ -208,7 +208,7 @@ namespace ToDoList
             this.ApplyAnimationClock(prop, clock);
             DatePicker1.Text = DateTime.Now.ToString();
             FillArr();
-            FileStream file = new FileStream("dataBase.txt", FileMode.Open, FileAccess.Write);
+            FileStream file = new FileStream("../../dataBase.txt", FileMode.Open, FileAccess.Write);
             StreamWriter writer = new StreamWriter(file);
             foreach (Rek t in usr)
             {
@@ -228,6 +228,9 @@ namespace ToDoList
 
 
         }
+        int indOf(string str) {
+            return (usr.IndexOf((usr.Find(u1 => u1.text == str)))); 
+        }
 
 
 
@@ -243,12 +246,12 @@ namespace ToDoList
                 if (MessageBox.Show("Вы точно хотите удалить запись?", "Удаление", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
                 {
 
-                    FileStream file = new FileStream("dataBase.txt", FileMode.Create, FileAccess.Write);
+                    FileStream file = new FileStream("../../dataBase.txt", FileMode.Create, FileAccess.Write);
                     StreamWriter writer = new StreamWriter(file);
+                    usr.RemoveAt(indOf(((TextBox)e.OriginalSource).Text));
                     foreach (Rek t in usr)
                     {
-                        if ((t.text != ((TextBox)e.OriginalSource).Text))
-                            writer.WriteLine(t.text + "/" + t.date);
+                          writer.WriteLine(t.text + "/" + t.date);
 
                     }
 
@@ -263,15 +266,14 @@ namespace ToDoList
                 }
             else if (e.Key == Key.F12)
             {
-                
 
-                   
-                    //DatePicker1.Text = usr[textBox.IndexOf()].date;
-                    MessageBox.Show(((TextBox)e.OriginalSource).Text);
+                MessageBox.Show(indOf(((TextBox)e.OriginalSource).Text).ToString());
+
+                    DatePicker1.Text = (usr.Find(u1 => u1.text == ((TextBox)e.OriginalSource).Text).date).ToString();
                     b1.Visibility = Visibility.Hidden;
                     b3.Visibility = Visibility.Visible;
                     StrChe = ((TextBox)e.OriginalSource).Text;
-
+                    textBox1.Text = ((TextBox)e.OriginalSource).Text;
                 }
 
             
@@ -284,7 +286,7 @@ namespace ToDoList
             if (MessageBox.Show("Вы точно хотите изменить  запись?", "Редактирование", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
             {
 
-                FileStream file = new FileStream("dataBase.txt", FileMode.Create, FileAccess.Write);
+                FileStream file = new FileStream("../../dataBase.txt", FileMode.Create, FileAccess.Write);
                 StreamWriter writer = new StreamWriter(file);
                 foreach (Rek t in usr)
                 {
@@ -325,6 +327,18 @@ namespace ToDoList
             base.OnClosing(e);
             ni.Visible = false;
         }
+
+        private void textBox1_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            ((TextBox)e.OriginalSource).Opacity = 1;
+        }
+
+
+
+
+
+
+  
 
     }
 

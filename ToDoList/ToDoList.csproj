@@ -103,7 +103,7 @@
     <Resource Include="50-512.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="scrn_big_1 %281%29.jpg" />
+    <Resource Include="notebook_PNG19223.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
