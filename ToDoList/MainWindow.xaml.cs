@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Collections;
 using System.Windows.Media.Animation;
+using System.Windows.Threading;
 
 
 
@@ -27,6 +28,7 @@ namespace ToDoList
     /// </summary>
     public partial class MainWindow : System.Windows.Window
     {
+       public DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
 
         DoubleAnimation anim;
         int left;
@@ -120,7 +122,7 @@ namespace ToDoList
             while ((!read.EndOfStream)) //Цикл длиться пока не будет достигнут конец файла
             {
                 str = read.ReadLine();
-                if (str == "")
+                if ((str == "") || (new DateTime(int.Parse((str.Split('/')[1]).Split('.')[2].Split(' ')[0]), int.Parse((str.Split('/')[1]).Split('.')[1]), int.Parse((str.Split('/')[1]).Split('.')[0])) < DateTime.Now.Date))
                     break;
                 
                     u1.date = new DateTime(int.Parse((str.Split('/')[1]).Split('.')[2].Split(' ')[0]), int.Parse((str.Split('/')[1]).Split('.')[1]), int.Parse((str.Split('/')[1]).Split('.')[0]));
@@ -147,18 +149,20 @@ namespace ToDoList
 
             foreach (Rek t in usr)
             {
+                if (t.date >= DateTime.Now.Date)
+                {
+                    AddLabel(j, textBox, 1, tab, t.date.ToShortDateString().ToString());
+                    AddTextBox(j, textBox, 1, tab);
+                    if (t.date == DateTime.Now.Date)
+                        ((TextBox)textBox[j]).Background = Brushes.OrangeRed;
+                    else if ((t.date.DayOfYear - DateTime.Now.DayOfYear) >= 7)
+                        ((TextBox)textBox[j]).Background = Brushes.Green;
+                    else
+                        ((TextBox)textBox[j]).Background = Brushes.Yellow;
 
-                AddLabel(j, textBox, 1, tab, t.date.ToShortDateString().ToString());
-                AddTextBox(j, textBox, 1, tab);
-                if (t.date == DateTime.Now.Date)
-                    ((TextBox)textBox[j]).Background = Brushes.OrangeRed;
-                else if ((t.date.DayOfYear - DateTime.Now.DayOfYear) >= 7)
-                    ((TextBox)textBox[j]).Background = Brushes.Green;
-                else
-                    ((TextBox)textBox[j]).Background = Brushes.Yellow;
-
-                ((TextBox)textBox[j]).Text = t.text;
-                j++;
+                    ((TextBox)textBox[j]).Text = t.text;
+                    j++;
+                }
 
             }
 
@@ -183,6 +187,8 @@ namespace ToDoList
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            combobox.SelectedIndex = -1;
+          
             if ((DatePicker1.SelectedDate >= DateTime.Now.Date) && (textBox1.Text != ""))
             {
                 //n = textBox.Count;
@@ -201,9 +207,18 @@ namespace ToDoList
 
 
         }
+        private void timerTick(object sender, EventArgs e)
+        {
+           new Window1().Show();
+           // button1.Visibility = Visibility.Visible;
+        }
 
         private void MyGrid_Loaded(object sender, RoutedEventArgs e)
         {
+            timer.Tick += new EventHandler(timerTick);
+            timer.Interval = new TimeSpan(0, 0, 30);
+            timer.Start();
+
             AnimationClock clock = anim.CreateClock();
             this.ApplyAnimationClock(prop, clock);
             DatePicker1.Text = DateTime.Now.ToString();

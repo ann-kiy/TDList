@@ -1,0 +1,15 @@
+﻿<Window x:Class="ToDoList.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Window1" Height="300" Width="458.209" WindowStyle="None" AllowsTransparency="True" ShowInTaskbar="False">
+    <Window.Background>
+        <ImageBrush ImageSource="message.png"/>
+    </Window.Background>
+    <Grid Loaded="Grid_Loaded">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="17*"/>
+            <ColumnDefinition Width="6*"/>
+        </Grid.ColumnDefinitions>
+    </Grid>
+</Window>
