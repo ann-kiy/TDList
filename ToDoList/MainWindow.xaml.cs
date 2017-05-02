@@ -76,8 +76,8 @@ namespace ToDoList
             ((TextBox)textBox[i]).BorderBrush = new SolidColorBrush();
             ((TextBox)textBox[i]).SelectionBrush = Brushes.White;           
             ((TextBox)textBox[i]).BorderThickness = new Thickness(2, 2, 2, 2);
-            ((TextBox)textBox[i]).FontFamily = new FontFamily("Comic Sans MS");
-            ((TextBox)textBox[i]).FontSize = 13;
+            ((TextBox)textBox[i]).FontFamily = new FontFamily("Arial");
+            ((TextBox)textBox[i]).FontSize = 14;
             ((TextBox)textBox[i]).Padding = new Thickness(3, 3, 3, 3);
             ((TextBox)textBox[i]).IsReadOnly = true;                   
             ((TextBox)textBox[i]).Opacity = 0.7;
@@ -359,6 +359,11 @@ namespace ToDoList
                 usr = usr.OrderBy(u1 => u1.date).ToList();
                 WriteList(usr);
             }
+
+        }
+
+        private void textBox1_TextChanged(object sender, TextChangedEventArgs e)
+        {
 
         }
 
