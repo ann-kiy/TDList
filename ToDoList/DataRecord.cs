@@ -11,11 +11,8 @@ using System.Windows.Media;
 namespace ToDoList
 {
     class DataRecord
-    {
-        
+    {        
             public static List<Record> Value { get; set; }
-           // public static bool SpotedTimer { get; set; } 
-
-           
+                      
     }
 }

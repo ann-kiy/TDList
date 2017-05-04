@@ -23,6 +23,17 @@ namespace ToDoList
     public partial class Window1 : Window
     {
         public DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
+        DoubleAnimation anim;
+        int left;
+        int top;
+        DependencyProperty prop;
+        int end;
+        System.Windows.Forms.NotifyIcon icon = new System.Windows.Forms.NotifyIcon();
+
+        ArrayList textBox = new ArrayList();
+        List<Record> records = DataRecord.Value;
+
+
         public Window1()
         {
             InitializeComponent();
@@ -31,24 +42,15 @@ namespace ToDoList
             this.Top = top;
             this.Left = left;
             anim = new DoubleAnimation(end, TimeSpan.FromSeconds(1));
-            ni.Icon = new System.Drawing.Icon("../../50-512.ico");
+            icon.Icon = new System.Drawing.Icon("../../50-512.ico");
         }
-        DoubleAnimation anim;
-        int left;
-        int top;
-        DependencyProperty prop;
-        int end;
-        System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
-
-        ArrayList textBox = new ArrayList();
-        List<Record> usr = DataRecord.Value;
-
+        
 
         private void timerTick(object sender, EventArgs e)
         {
             this.Close();
             timer.Stop();
-            // button1.Visibility = Visibility.Visible;
+          
         }
 
 
@@ -69,10 +71,7 @@ namespace ToDoList
             ((TextBox)textBox[i]).SelectionBrush = Brushes.White;
             ((TextBox)textBox[i]).BorderThickness = new Thickness(2, 2, 2, 2);
             ((TextBox)textBox[i]).IsReadOnly = true;
-            ((TextBox)textBox[i]).Opacity = 0.4;
-            ((TextBox)textBox[i]).MouseDown += Grid_MouseDown;
-                
-
+            ((TextBox)textBox[i]).Opacity = 0.8;
             panel.Children.Add(((TextBox)textBox[i]));
         }
         void WriteList(List<Record> usr)
@@ -87,23 +86,11 @@ namespace ToDoList
 
                    
                     AddTextBox(j, textBox, 1, 1);
-                    //if (t.date == DateTime.Now.Date)
-                    //    ((TextBox)textBox[j]).Background = Brushes.OrangeRed;
-                    //else if ((t.date.DayOfYear - DateTime.Now.DayOfYear) >= 7)
-                    //    ((TextBox)textBox[j]).Background = Brushes.Green;
-                    //else
-                    //    ((TextBox)textBox[j]).Background = Brushes.Yellow;
-
-                    ((TextBox)textBox[j]).Text = t.text;
+                   ((TextBox)textBox[j]).Text = t.text;
                     j++;
                 }
 
             }
-
-            j = 0;
-
-
-
 
         }
 
@@ -113,22 +100,11 @@ namespace ToDoList
         {
             AnimationClock clock = anim.CreateClock();
             this.ApplyAnimationClock(prop, clock);
-           MainWindow f = new MainWindow();
-         // f.ShowDialog();
-          usr= DataRecord.Value;
-           //f.Close();
-
-           WriteList(usr);
-          
-
+            records = DataRecord.Value;
+            WriteList(records);      
            timer.Tick += new EventHandler(timerTick);
            timer.Interval = new TimeSpan(0, 0, 10);
-           timer.Start();
-            
-            
-           
-           
-
+           timer.Start();  
            
         }
 
@@ -142,9 +118,7 @@ namespace ToDoList
         {
             timer.Stop();
             this.Close();
-           // DataRec.stateW = WindowState.Normal;
-            //new MainWindow().WindowState=WindowState.Normal;
-
+           
         }
       
     }

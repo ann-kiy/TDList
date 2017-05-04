@@ -17,7 +17,7 @@
                 <ImageBrush ImageSource="w512h5121348753302CuteBallStop.png"/>
             </Button.Background>
         </Button>
-        <ScrollViewer  HorizontalAlignment="Left" Height="177" VerticalAlignment="Top" Width="411" Grid.ColumnSpan="2" Margin="0,65,0,0" Grid.Column="1">
+        <ScrollViewer  HorizontalAlignment="Left" Height="180" VerticalAlignment="Top" Width="383" Grid.ColumnSpan="2" Margin="0,65,0,0" Grid.Column="1">
             <StackPanel x:Name="panel" HorizontalAlignment="Left" Height="191" VerticalAlignment="Top" Width="406" MouseDown="Grid_MouseDown"/>
         </ScrollViewer>
         <Label Content="На сегодня  вы запланировали:" Grid.Column="1" HorizontalAlignment="Left" Margin="46,25,0,0" VerticalAlignment="Top" Width="291" FontSize="16" Grid.ColumnSpan="2" FontFamily="Segoe Script" Background="{x:Null}" Foreground="#FFC6311B" FontWeight="Bold" MouseDown="Grid_MouseDown"/>
