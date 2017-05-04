@@ -29,6 +29,7 @@ namespace ToDoList
     public partial class MainWindow : System.Windows.Window
     {
        public DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
+       const ushort intermediateTime = 900;
 
         DoubleAnimation anim;
         int left;
@@ -49,20 +50,24 @@ namespace ToDoList
         }
         ArrayList textBox = new ArrayList();
         ArrayList label = new ArrayList();
-        ArrayList checkBox = new ArrayList();
-        int i = 0, tab = 70;
+        //ArrayList checkBox = new ArrayList();
+        int i = 0, tab = 1;
         int n;
         string StrChe;
 
-        public class Rek
-        {
-            public DateTime date;
-            public string text;
-        }
-        List<Rek> usr = new List<Rek>();
-        Rek u1 = new Rek();
+      
+        List<Record> usr = new List<Record>();
+        
+        Record u1 = new Record();
 
-
+        //public List<Rek> Data
+        //{
+        //    get
+        //    {
+        //        return usr1;
+        //    }
+        //}
+       
         void AddTextBox(int i, ArrayList textBox, int h, int l)
         {
 
@@ -80,6 +85,7 @@ namespace ToDoList
             ((TextBox)textBox[i]).BorderThickness = new Thickness(2, 2, 2, 2);
             ((TextBox)textBox[i]).IsReadOnly = true;                   
             ((TextBox)textBox[i]).Opacity = 0.7;
+            
             
             panel.Children.Add(((TextBox)textBox[i]));
         }
@@ -112,42 +118,43 @@ namespace ToDoList
             writer.Close();
 
         }
+    
 
-        void FillArr()
+
+        List<Record> FillArray(List<Record> usr)
         {
             FileStream file = new FileStream("../../dataBase.txt", FileMode.OpenOrCreate, FileAccess.Read);
             StreamReader read = new StreamReader(file);
             string str;
 
-            while ((!read.EndOfStream)) //Цикл длиться пока не будет достигнут конец файла
-            {
+            while ((!read.EndOfStream)) {
+
                 str = read.ReadLine();
-                if ((str == "") || (new DateTime(int.Parse((str.Split('/')[1]).Split('.')[2].Split(' ')[0]), int.Parse((str.Split('/')[1]).Split('.')[1]), int.Parse((str.Split('/')[1]).Split('.')[0])) < DateTime.Now.Date))
-                    break;
-                
+                if ((str == "") ||(new DateTime(int.Parse((str.Split('/')[1]).Split('.')[2].Split(' ')[0]), int.Parse((str.Split('/')[1]).Split('.')[1]), int.Parse((str.Split('/')[1]).Split('.')[0]))< DateTime.Now.Date))
+                    continue;                
                     u1.date = new DateTime(int.Parse((str.Split('/')[1]).Split('.')[2].Split(' ')[0]), int.Parse((str.Split('/')[1]).Split('.')[1]), int.Parse((str.Split('/')[1]).Split('.')[0]));
                     u1.text = str.Split('/')[0];
                     usr.Add(u1);
-                    u1 = new Rek();
-
-                    i++;
+                    u1 = new Record();
+                    i++;            
                
             }
-
-
             read.Close();
+            DataRecord.Value = usr;
 
-
-            //usr = usr.OrderBy(u1 => u1.date).ToList();
-
-
+            return usr;
+            
         }
 
-        void WriteList(List<Rek> usr)
+
+
+
+
+        void WriteList(List<Record> usr)
         {
             int j = 0;
 
-            foreach (Rek t in usr)
+            foreach (Record t in usr)
             {
                 if (t.date >= DateTime.Now.Date)
                 {
@@ -180,10 +187,13 @@ namespace ToDoList
         {
             textBox.Clear();
             label.Clear();
-            checkBox.Clear();
+            //checkBox.Clear();
             usr.Clear();
             tab = 0;
         }
+
+
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -196,54 +206,59 @@ namespace ToDoList
 
                 FileWrite(textBox1.Text, DatePicker1.Text.ToString());
 
-                FillArr();
+                
                 panel.Children.Clear();
 
 
-                WriteList(usr);
+                WriteList(FillArray(usr));
                 textBox1.Text = "";
             }
             else MessageBox.Show("Введите коректные данные!");
 
 
         }
+
+
+
+
         private void timerTick(object sender, EventArgs e)
         {
            new Window1().Show();
+          //timer.Stop();
            // button1.Visibility = Visibility.Visible;
         }
 
+
         private void MyGrid_Loaded(object sender, RoutedEventArgs e)
         {
-            timer.Tick += new EventHandler(timerTick);
-            timer.Interval = new TimeSpan(0, 0, 30);
-            timer.Start();
-
+            timer.Stop();
+            //DataRec.SpotedTimer = true;
             AnimationClock clock = anim.CreateClock();
             this.ApplyAnimationClock(prop, clock);
             DatePicker1.Text = DateTime.Now.ToString();
             dat2.Text = "Выберите дату";
-            FillArr();
-            FileStream file = new FileStream("../../dataBase.txt", FileMode.Open, FileAccess.Write);
-            StreamWriter writer = new StreamWriter(file);
-            foreach (Rek t in usr)
-            {
-                if (t.date >= DateTime.Now.Date)
-                    writer.WriteLine(t.text + "/" + t.date);
+            //FillArr();
+            //FileStream file = new FileStream("../../dataBase.txt", FileMode.Open, FileAccess.Write);
+            //StreamWriter writer = new StreamWriter(file);
+            //foreach (Rek t in usr)
+            //{
+            //    if (t.date >= DateTime.Now.Date)
+            //        writer.WriteLine(t.text + "/" + t.date);
 
-            }
+            //}
 
 
-            writer.Close();
-            ClearDate();
+            //writer.Close();
+            //ClearDate();
+            //FillArr();
 
-            FillArr();
-
-            WriteList(usr);
+            WriteList(FillArray(usr));
 
 
 
         }
+
+
         int indOf(string str) {
             return (usr.IndexOf((usr.Find(u1 => u1.text == str)))); 
         }
@@ -265,7 +280,7 @@ namespace ToDoList
                     FileStream file = new FileStream("../../dataBase.txt", FileMode.Create, FileAccess.Write);
                     StreamWriter writer = new StreamWriter(file);
                     usr.RemoveAt(indOf(((TextBox)e.OriginalSource).Text));
-                    foreach (Rek t in usr)
+                    foreach (Record t in usr)
                     {
                           writer.WriteLine(t.text + "/" + t.date);
 
@@ -275,9 +290,9 @@ namespace ToDoList
                     writer.Close();
                     ClearDate();
 
-                    FillArr();
+                    //FillArr();
                     panel.Children.Clear();
-                    WriteList(usr);
+                    WriteList(FillArray(usr));
                 }
                 }
             else if (e.Key == Key.F12)
@@ -304,7 +319,7 @@ namespace ToDoList
 
                 FileStream file = new FileStream("../../dataBase.txt", FileMode.Create, FileAccess.Write);
                 StreamWriter writer = new StreamWriter(file);
-                foreach (Rek t in usr)
+                foreach (Record t in usr)
                 {
                     if (t.text != StrChe)
                         writer.WriteLine(t.text + "/" + t.date);
@@ -318,9 +333,9 @@ namespace ToDoList
 
                 ClearDate();
 
-                FillArr();
+               // FillArr();
                 panel.Children.Clear();
-                WriteList(usr);
+                WriteList(FillArray(usr));
                 textBox1.Text = "";
             }
 
@@ -328,20 +343,30 @@ namespace ToDoList
 
         private void Window_StateChanged(object sender, EventArgs e)
         {
-            ni.Visible = true;
-            ni.Click += (sndr, args) =>
-            {
-                this.Show();
-                ni.Visible = false;
-                this.WindowState = WindowState.Normal;
-            };
-            this.Hide();
+           
+                ni.Visible = true;
+                ni.Click += (sndr, args) =>
+                {
+                    this.Show();
+                    ni.Visible = false;
+                    this.WindowState = WindowState.Normal;
+                };
+                this.Hide();
+                timer.Tick += new EventHandler(timerTick);
+                timer.Interval = new TimeSpan(0, 0, intermediateTime);
+                timer.Start();
+                //DataRec.SpotedTimer = false;
+                if (this.WindowState == WindowState.Normal)
+                    timer.Stop();
+           
+           
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             base.OnClosing(e);
             ni.Visible = false;
+            
         }
 
         private void textBox1_SelectionChanged(object sender, RoutedEventArgs e)
@@ -355,7 +380,7 @@ namespace ToDoList
             {
                 textBox.Clear();
                 label.Clear();
-                checkBox.Clear();
+                //checkBox.Clear();
 
                 tab = 0;
                 //FillArr();
