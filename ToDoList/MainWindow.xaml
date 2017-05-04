@@ -52,8 +52,8 @@
             <ListBoxItem Content="По актуальности" Foreground="#FF868D57"/>
             <ListBoxItem Content="По выбранной дате" Foreground="#FF868D57"/>
         </ComboBox>
-        <DatePicker x:Name="dat2" Grid.Column="2" HorizontalAlignment="Left" Margin="97,48,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}"/>
-        <Label Content="Сортировка" Grid.Column="1" HorizontalAlignment="Left" Margin="77,48,0,0" VerticalAlignment="Top" Width="104" FontWeight="Bold" Background="{x:Null}" Foreground="#FF878D55" FontFamily="Trebuchet MS" FontSize="14"/>
+        <DatePicker x:Name="dat2" Grid.Column="2" HorizontalAlignment="Left" Margin="97,51,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" FontFamily="Arial"/>
+        <Label Content="Сортировка" Grid.Column="1" HorizontalAlignment="Left" Margin="77,48,0,0" VerticalAlignment="Top" Width="104" FontWeight="Bold" Background="{x:Null}" Foreground="#FF878D55" FontFamily="Arial" FontSize="14"/>
 
 
 

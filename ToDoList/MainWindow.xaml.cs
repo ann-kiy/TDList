@@ -55,9 +55,9 @@ namespace ToDoList
             icon.Icon = new System.Drawing.Icon("../../50-512.ico");
 
         }
-       
 
-        
+
+
        
         void AddTextBox(int i, ArrayList textBox, int h, int l)
         {
@@ -74,8 +74,11 @@ namespace ToDoList
             ((TextBox)textBox[i]).BorderBrush = new SolidColorBrush();
             ((TextBox)textBox[i]).SelectionBrush = Brushes.White;           
             ((TextBox)textBox[i]).BorderThickness = new Thickness(2, 2, 2, 2);
+            ((TextBox)textBox[i]).FontFamily = new FontFamily("Arial");
+            ((TextBox)textBox[i]).FontSize = 14;
+            ((TextBox)textBox[i]).Padding = new Thickness(3, 3, 3, 3);
             ((TextBox)textBox[i]).IsReadOnly = true;                   
-            ((TextBox)textBox[i]).Opacity = 0.7;       
+            ((TextBox)textBox[i]).Opacity = 0.7;
             panel.Children.Add(((TextBox)textBox[i]));
         }
 
@@ -135,7 +138,7 @@ namespace ToDoList
             DataRecord.Value = usr;
 
             return usr;
-            
+
         }
 
 
@@ -149,22 +152,22 @@ namespace ToDoList
             foreach (Record t in usr)
             {
                 if (t.date >= DateTime.Now.Date)
-                {
+            {
                     AddLabel(j, textBox, 1, tabTexBox, t.date.ToShortDateString().ToString());
                     AddTextBox(j, textBox, 1, tabTexBox);
-                    if (t.date == DateTime.Now.Date)
-                        ((TextBox)textBox[j]).Background = Brushes.OrangeRed;
-                    else if ((t.date.DayOfYear - DateTime.Now.DayOfYear) >= 7)
-                        ((TextBox)textBox[j]).Background = Brushes.Green;
-                    else
-                        ((TextBox)textBox[j]).Background = Brushes.Yellow;
+                if (t.date == DateTime.Now.Date)
+                    ((TextBox)textBox[j]).Background = Brushes.OrangeRed;
+                else if ((t.date.DayOfYear - DateTime.Now.DayOfYear) >= 7)
+                    ((TextBox)textBox[j]).Background = Brushes.Green;
+                else
+                    ((TextBox)textBox[j]).Background = Brushes.Yellow;
 
-                    ((TextBox)textBox[j]).Text = t.text;
-                    j++;
+                ((TextBox)textBox[j]).Text = t.text;
+                j++;
                 }
 
             }
-                   
+
         }
 
 
@@ -219,7 +222,7 @@ namespace ToDoList
             dat2.Text = "Выберите дату";
             WriteList(ReedOfFileInArray(records));
 
-        }
+            }
 
 
         int indexSelectTextBox(string str) 
@@ -241,35 +244,35 @@ namespace ToDoList
             {
 
                 if (MessageBox.Show("Вы точно хотите удалить запись?", "Удаление", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
-                        {
+                {
 
-                            FileStream file = new FileStream("../../dataBase.txt", FileMode.Create, FileAccess.Write);
-                            StreamWriter writer = new StreamWriter(file);
+                    FileStream file = new FileStream("../../dataBase.txt", FileMode.Create, FileAccess.Write);
+                    StreamWriter writer = new StreamWriter(file);
                             records.RemoveAt(indexSelectTextBox(((TextBox)e.OriginalSource).Text));
                             foreach (Record t in records)
-                                {
-                                      writer.WriteLine(t.text + "/" + t.date);
+                    {
+                          writer.WriteLine(t.text + "/" + t.date);
 
-                                }
-                            writer.Close();
-                            ClearDate();                   
-                            panel.Children.Clear();
+                    }
+                    writer.Close();
+                    ClearDate();
+                    panel.Children.Clear();
                             WriteList(ReedOfFileInArray(records));
-                        }
+                }
                 combobox.SelectedIndex = -1;
 
-             }
+                }
             else if (e.Key == Key.F12)
-                        {
+            {
 
                             MessageBox.Show(indexSelectTextBox(((TextBox)e.OriginalSource).Text).ToString());
 
                             DatePicker1.Text = (records.Find(u1 => u1.text == ((TextBox)e.OriginalSource).Text).date).ToString();
                             ButtonAdd.Visibility = Visibility.Hidden;
                             buttonChanges.Visibility = Visibility.Visible;
-                                StrChe = ((TextBox)e.OriginalSource).Text;
+                    StrChe = ((TextBox)e.OriginalSource).Text;
                                 textInput.Text = ((TextBox)e.OriginalSource).Text;
-                          }
+                }
 
             
 
@@ -284,13 +287,13 @@ namespace ToDoList
                 FileStream file = new FileStream("../../dataBase.txt", FileMode.Create, FileAccess.Write);
                 StreamWriter writer = new StreamWriter(file);
                 foreach (Record t in records)
-                        {
-                            if (t.text != StrChe)
-                                writer.WriteLine(t.text + "/" + t.date);
-                            else
+                {
+                    if (t.text != StrChe)
+                        writer.WriteLine(t.text + "/" + t.date);
+                    else
                                 writer.WriteLine(textInput.Text + "/" + DatePicker1.Text.ToString());
 
-                        }
+                }
                 ButtonAdd.Visibility = Visibility.Visible;
                 buttonChanges.Visibility = Visibility.Hidden;
                 writer.Close();
@@ -308,12 +311,12 @@ namespace ToDoList
 
             icon.Visible = true;
             icon.Click += (sndr, args) =>
-                {
-                    this.Show();
+            {
+                this.Show();
                     icon.Visible = false;
-                    this.WindowState = WindowState.Normal;
-                };
-                this.Hide();
+                this.WindowState = WindowState.Normal;
+            };
+            this.Hide();
                 timer.Tick += new EventHandler(timerTick);
                 timer.Interval = new TimeSpan(0, 0, intermediateTime);
                 timer.Start();
@@ -330,7 +333,7 @@ namespace ToDoList
             
         }
 
-       
+
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (combobox.SelectedIndex == 1)
@@ -347,6 +350,11 @@ namespace ToDoList
                 records = records.OrderBy(u1 => u1.date).ToList();
                 WriteList(records);
             }
+
+        }
+
+        private void textBox1_TextChanged(object sender, TextChangedEventArgs e)
+        {
 
         }
 
