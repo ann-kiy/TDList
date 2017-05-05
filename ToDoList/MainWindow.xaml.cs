@@ -52,7 +52,7 @@ namespace ToDoList
             this.Top = top;
             this.Left = left;
             anim = new DoubleAnimation(end, TimeSpan.FromSeconds(1));
-            icon.Icon = new System.Drawing.Icon("../../50-512.ico");
+            //*icon.Icon = new System.Drawing.Icon("../../50-512.ico");
 
         }
 
@@ -99,14 +99,17 @@ namespace ToDoList
 
         }
 
-        void FileWrite(string text, string date)
+        public void FileWrite(string text, string date)
         {
 
             FileStream file = new FileStream("../../dataBase.txt", FileMode.Append, FileAccess.Write);
-            StreamWriter writer = new StreamWriter(file);
-            writer.WriteLine(text + "/" + date);
-            writer.Close();
-
+            if (!File.Exists("../../dataBase.txt")) { throw new Exception("file does not exist"); }
+            else
+            {
+                StreamWriter writer = new StreamWriter(file);
+                writer.WriteLine(text + "/" + date);
+                writer.Close();
+            }
         }
 
         DateTime StringToDate(string str)
