@@ -53,7 +53,7 @@ namespace ToDoList
             this.Top = top;
             this.Left = left;
             anim = new DoubleAnimation(end, TimeSpan.FromSeconds(1));
-            //*icon.Icon = new System.Drawing.Icon("../../50-512.ico");
+            icon.Icon = new System.Drawing.Icon("../../50-512.ico");
 
         }
 
@@ -229,7 +229,7 @@ namespace ToDoList
             }
 
 
-        int indexSelectTextBox(string str) 
+        public int indexSelectTextBox(string str) 
         {
 
             return (records.IndexOf((records.Find(u1 => u1.text == str)))); 

@@ -54,11 +54,5 @@ namespace ToDoList.Tests
             if (tr[t.coutRecords - 1].text.ToString() != RandomNumber.ToString()) Assert.Fail("Error reading from file: wrong text");
             if (tr[t.coutRecords - 1].date.ToString() != date) Assert.Fail("Error reading from file: wrong date");
         }
-
-        [TestMethod()]
-        public void indexSelectTextBoxTest()
-        {
-
-        }
     }
 }
