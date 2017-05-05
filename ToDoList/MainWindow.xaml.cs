@@ -16,9 +16,7 @@ using System.IO;
 using System.Collections;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
-
-
-
+using System.Media;
 
 namespace ToDoList
 {
@@ -53,6 +51,9 @@ namespace ToDoList
             this.Left = left;
             anim = new DoubleAnimation(end, TimeSpan.FromSeconds(1));
             icon.Icon = new System.Drawing.Icon("../../50-512.ico");
+            SoundPlayer player = new SoundPlayer("../../sounds/paper.wav");
+            player.Load();
+            player.Play();
 
         }
 
@@ -197,6 +198,9 @@ namespace ToDoList
                 panel.Children.Clear();
                 WriteList(ReedOfFileInArray(records));
                 textInput.Text = "";
+                SoundPlayer player = new SoundPlayer("../../sounds/pencil.wav");
+                player.Load();
+                player.Play();
             }
             else MessageBox.Show("Введите коректные данные!");
 
@@ -258,7 +262,10 @@ namespace ToDoList
                     writer.Close();
                     ClearDate();
                     panel.Children.Clear();
-                            WriteList(ReedOfFileInArray(records));
+                    WriteList(ReedOfFileInArray(records));
+                    SoundPlayer player = new SoundPlayer("../../sounds/delete.wav");
+                    player.Load();
+                    player.Play();
                 }
                 combobox.SelectedIndex = -1;
 
