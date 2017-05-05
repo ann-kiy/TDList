@@ -4,7 +4,7 @@
         
    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="ToDoList.MainWindow"
         
-   Title="To Do List" Height="680.03" Width="496.134" Icon="50-512.ico" StateChanged="Window_StateChanged" ContentStringFormat="" MinHeight="679" MinWidth="523" MaxWidth="523" MaxHeight="679" AllowsTransparency="True" WindowStyle="None">
+   Title="To Do List" Height="680.03" Width="496.134" Icon="50-512.ico" StateChanged="Window_StateChanged" ContentStringFormat="" MinHeight="679" MinWidth="523" MaxWidth="523" MaxHeight="679" AllowsTransparency="True" WindowStyle="None" Topmost="True">
     <Window.Background>
         <ImageBrush/>
     </Window.Background>
@@ -29,7 +29,7 @@
                 </LinearGradientBrush>
             </Button.BorderBrush>
         </Button>
-        <TextBox x:Name="textInput" HorizontalAlignment="Left" Height="31" Margin="68,584,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" ScrollViewer.CanContentScroll="True" Foreground="#FF080808" Background="#FF868D57" BorderThickness="1" Grid.Column="1" Opacity="0.7" SelectionBrush="#FF3EF109" BorderBrush="{x:Null}" Grid.ColumnSpan="2"  >
+        <TextBox x:Name="textInput" HorizontalAlignment="Left" Height="31" Margin="68,584,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" ScrollViewer.CanContentScroll="True" Foreground="#FF080808" Background="#FF868D57" BorderThickness="1" Grid.Column="1" Opacity="0.7" SelectionBrush="#FF3EF109" BorderBrush="{x:Null}" Grid.ColumnSpan="2"   >
             <TextBox.CaretBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="1"/>
@@ -52,7 +52,7 @@
             <ListBoxItem Content="По актуальности" Foreground="#FF868D57"/>
             <ListBoxItem Content="По выбранной дате" Foreground="#FF868D57"/>
         </ComboBox>
-        <DatePicker x:Name="dat2" Grid.Column="2" HorizontalAlignment="Left" Margin="97,51,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" FontFamily="Arial"/>
+        <DatePicker x:Name="dat2" Grid.Column="2" HorizontalAlignment="Left" Margin="97,51,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" FontFamily="Arial" SelectedDateChanged="dat2_SelectedDateChanged"/>
         <Label Content="Сортировка" Grid.Column="1" HorizontalAlignment="Left" Margin="77,48,0,0" VerticalAlignment="Top" Width="104" FontWeight="Bold" Background="{x:Null}" Foreground="#FF878D55" FontFamily="Arial" FontSize="14"/>
 
 

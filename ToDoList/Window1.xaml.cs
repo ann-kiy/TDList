@@ -71,7 +71,7 @@ namespace ToDoList
             ((TextBox)textBox[i]).SelectionBrush = Brushes.White;
             ((TextBox)textBox[i]).BorderThickness = new Thickness(2, 2, 2, 2);
             ((TextBox)textBox[i]).IsReadOnly = true;
-            ((TextBox)textBox[i]).Opacity = 0.8;
+            ((TextBox)textBox[i]).Opacity = 0.8;            
             panel.Children.Add(((TextBox)textBox[i]));
         }
         void WriteList(List<Record> usr)

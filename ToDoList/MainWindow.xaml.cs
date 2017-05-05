@@ -79,6 +79,7 @@ namespace ToDoList
             ((TextBox)textBox[i]).Padding = new Thickness(3, 3, 3, 3);
             ((TextBox)textBox[i]).IsReadOnly = true;                   
             ((TextBox)textBox[i]).Opacity = 0.7;
+            ((TextBox)textBox[i]).ToolTip = "Для удаления нажмите кнопку <Del>, для редактирования кнопку <F12>";
             panel.Children.Add(((TextBox)textBox[i]));
         }
 
@@ -219,7 +220,7 @@ namespace ToDoList
             AnimationClock clock = anim.CreateClock();
             this.ApplyAnimationClock(prop, clock);
             DatePicker1.Text = DateTime.Now.ToString();
-            dat2.Text = "Выберите дату";
+            dat2.SelectedDate = DateTime.Now;
             WriteList(ReedOfFileInArray(records));
 
             }
@@ -353,9 +354,12 @@ namespace ToDoList
 
         }
 
-        private void textBox1_TextChanged(object sender, TextChangedEventArgs e)
-        {
+      
 
+        private void dat2_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (combobox.SelectedIndex == 1)
+                dat2.SelectedDateChanged += ComboBox_SelectionChanged;
         }
 
 
