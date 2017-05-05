@@ -39,7 +39,8 @@ namespace ToDoList
 
         ArrayList textBox = new ArrayList();
         ArrayList label = new ArrayList();
-        int coutRecords = 0, tabTexBox = 1;
+        public int coutRecords = 0;
+        int tabTexBox = 1;
         string StrChe;
         List<Record> records = new List<Record>();
         Record task = new Record();
@@ -120,7 +121,7 @@ namespace ToDoList
         }
 
 
-        List<Record> ReedOfFileInArray(List<Record> usr){
+        public List<Record> ReedOfFileInArray(List<Record> usr){
 
             FileStream file = new FileStream("../../dataBase.txt", FileMode.OpenOrCreate, FileAccess.Read);
             StreamReader read = new StreamReader(file);
