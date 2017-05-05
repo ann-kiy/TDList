@@ -113,7 +113,7 @@ namespace ToDoList
             }
         }
 
-        DateTime StringToDate(string str)
+        public DateTime StringToDate(string str)
         {
 
             return new DateTime(int.Parse((str.Split('/')[1]).Split('.')[2].Split(' ')[0]), int.Parse((str.Split('/')[1]).Split('.')[1]), int.Parse((str.Split('/')[1]).Split('.')[0]));
