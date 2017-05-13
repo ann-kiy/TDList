@@ -41,7 +41,7 @@ namespace ToDoList
         string StrChe;
         List<Record> records = new List<Record>();
         Record task = new Record();
-        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -59,7 +59,7 @@ namespace ToDoList
 
 
 
-       
+
         void AddTextBox(int i, ArrayList textBox, int h, int l)
         {
 
@@ -73,12 +73,12 @@ namespace ToDoList
             ((TextBox)textBox[i]).VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             ((TextBox)textBox[i]).KeyUp += textBox1_KeyUp;
             ((TextBox)textBox[i]).BorderBrush = new SolidColorBrush();
-            ((TextBox)textBox[i]).SelectionBrush = Brushes.White;           
+            ((TextBox)textBox[i]).SelectionBrush = Brushes.White;
             ((TextBox)textBox[i]).BorderThickness = new Thickness(2, 2, 2, 2);
             ((TextBox)textBox[i]).FontFamily = new FontFamily("Arial");
             ((TextBox)textBox[i]).FontSize = 14;
             ((TextBox)textBox[i]).Padding = new Thickness(3, 3, 3, 3);
-            ((TextBox)textBox[i]).IsReadOnly = true;                   
+            ((TextBox)textBox[i]).IsReadOnly = true;
             ((TextBox)textBox[i]).Opacity = 0.7;
             ((TextBox)textBox[i]).ToolTip = "Для удаления нажмите кнопку <Del>, для редактирования кнопку <F12>";
             panel.Children.Add(((TextBox)textBox[i]));
@@ -133,8 +133,8 @@ namespace ToDoList
                 task.text = str.Split('/')[0];
                 usr.Add(task);
                 task = new Record();
-                        coutRecords++;            
-               
+                        coutRecords++;
+
             }
             read.Close();
             DataRecord.Value = usr;
@@ -192,9 +192,9 @@ namespace ToDoList
 
             if ((DatePicker1.SelectedDate >= DateTime.Now.Date) && (textInput.Text != ""))
             {
-               
+
                 ClearDate();
-                FileWrite(textInput.Text, DatePicker1.Text.ToString());                
+                FileWrite(textInput.Text, DatePicker1.Text.ToString());
                 panel.Children.Clear();
                 WriteList(ReedOfFileInArray(records));
                 textInput.Text = "";
@@ -213,8 +213,8 @@ namespace ToDoList
         private void timerTick(object sender, EventArgs e)
         {
 
-           new Window1().Show();      
-           
+           new Window1().Show();
+
         }
 
 
@@ -230,10 +230,10 @@ namespace ToDoList
             }
 
 
-        int indexSelectTextBox(string str) 
+        int indexSelectTextBox(string str)
         {
 
-            return (records.IndexOf((records.Find(u1 => u1.text == str)))); 
+            return (records.IndexOf((records.Find(u1 => u1.text == str))));
 
         }
 
@@ -282,10 +282,10 @@ namespace ToDoList
                                 textInput.Text = ((TextBox)e.OriginalSource).Text;
                 }
 
-            
+
 
             }
-        
+
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
@@ -330,15 +330,15 @@ namespace ToDoList
                 timer.Start();
                 if (this.WindowState == WindowState.Normal)
                     timer.Stop();
-           
-           
+
+
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             base.OnClosing(e);
             icon.Visible = false;
-            
+
         }
 
 
@@ -361,7 +361,7 @@ namespace ToDoList
 
         }
 
-      
+
 
         private void dat2_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -374,10 +374,9 @@ namespace ToDoList
 
 
 
-  
+
 
     }
 
- 
-}
 
+}
