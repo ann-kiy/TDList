@@ -30,7 +30,7 @@ namespace ToDoList
     {
        public DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
        System.Windows.Forms.NotifyIcon icon = new System.Windows.Forms.NotifyIcon();
-       const ushort intermediateTime = 300;
+       const ushort intermediateTime = 900;
         DoubleAnimation anim;
         int left;
         int top;
@@ -208,7 +208,7 @@ namespace ToDoList
 
         private void timerTick(object sender, EventArgs e)
         {
-
+            if ((records.FindAll(u1 => u1.date == DateTime.Now.Date)).Count!=0)
            new Window1().Show();      
            
         }
@@ -334,6 +334,7 @@ namespace ToDoList
             icon.Visible = false;
             
         }
+
         void Sorting() 
         {
              if (combobox.SelectedIndex == 1)
