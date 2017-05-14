@@ -30,7 +30,7 @@ namespace ToDoList
     {
        public DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
        System.Windows.Forms.NotifyIcon icon = new System.Windows.Forms.NotifyIcon();
-       const ushort intermediateTime = 15;
+       const ushort intermediateTime = 300;
         DoubleAnimation anim;
         int left;
         int top;
@@ -132,7 +132,7 @@ namespace ToDoList
                 task.text = str.Split('/')[0];
                 usr.Add(task);
                 task = new Record();
-                        coutRecords++;            
+                coutRecords++;            
                
             }
             read.Close();
@@ -187,9 +187,10 @@ namespace ToDoList
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            
             combobox.SelectedIndex = -1;
 
-            if ((DatePicker1.SelectedDate >= DateTime.Now.Date) && (textInput.Text != ""))
+            if ((DatePicker1.SelectedDate >= DateTime.Now.Date) && (textInput.Text != "") && (textInput.Text != "Введите задачу"))
             {
                
                 ClearDate();
@@ -199,6 +200,7 @@ namespace ToDoList
                 textInput.Text = "";
             }
             else MessageBox.Show("Введите коректные данные!");
+            textInput.Text = "Введите задачу";
 
 
         }
@@ -220,8 +222,9 @@ namespace ToDoList
             AnimationClock clock = anim.CreateClock();
             this.ApplyAnimationClock(prop, clock);
             DatePicker1.Text = DateTime.Now.ToString();
-            dat2.SelectedDate = DateTime.Now;
+            dat2.SelectedDate = DateTime.Now.Date;
             WriteList(ReedOfFileInArray(records));
+            dat2.SelectedDateChanged += ComboBox_SelectionChanged;
 
             }
 
@@ -354,14 +357,30 @@ namespace ToDoList
 
         }
 
-      
 
-        private void dat2_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+
+
+        private void textInput_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (combobox.SelectedIndex == 1)
-                dat2.SelectedDateChanged += ComboBox_SelectionChanged;
+            if (textInput.Text == "Введите задачу")
+                textInput.Text = "";
         }
 
+        
+
+        private void panel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            textInput.Text = "Введите задачу";
+        }
+
+        
+
+    
+       
+
+       
+
+       
 
 
 
