@@ -394,6 +394,11 @@ namespace ToDoList
     
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Window_StateChanged(this, e);
+        }
+
         
         
     

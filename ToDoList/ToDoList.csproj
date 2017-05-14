@@ -132,6 +132,9 @@
   <ItemGroup>
     <Resource Include="w512h5121348753302CuteBallStop.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="w128h1281349050168packageremove.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

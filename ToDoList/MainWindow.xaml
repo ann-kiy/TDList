@@ -54,9 +54,14 @@
         </ComboBox>
         <DatePicker x:Name="dat2" Grid.Column="2" HorizontalAlignment="Left" Margin="97,51,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" FontFamily="Arial"/>
         <Label Content="Сортировка" Grid.Column="1" HorizontalAlignment="Left" Margin="77,48,0,0" VerticalAlignment="Top" Width="104" FontWeight="Bold" Background="{x:Null}" Foreground="#FF878D55" FontFamily="Arial" FontSize="14"/>
-        <Button Content="closedBut" Grid.Column="2" HorizontalAlignment="Left" Margin="215,55,0,0" VerticalAlignment="Top" Width="21" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="closedBut_Click">
+        <Button Content="closedBut" Grid.Column="2" HorizontalAlignment="Left" Margin="227,55,0,0" VerticalAlignment="Top" Width="21" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="closedBut_Click">
             <Button.Background>
                 <ImageBrush ImageSource="w512h5121348753302CuteBallStop.png"/>
+            </Button.Background>
+        </Button>
+        <Button Content="ButtonHide" Grid.Column="2" HorizontalAlignment="Left" Margin="207,55,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="w128h1281349050168packageremove.png"/>
             </Button.Background>
         </Button>
 
