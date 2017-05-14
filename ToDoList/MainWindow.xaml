@@ -29,7 +29,7 @@
                 </LinearGradientBrush>
             </Button.BorderBrush>
         </Button>
-        <TextBox x:Name="textInput" HorizontalAlignment="Left" Height="31" Margin="68,584,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" ScrollViewer.CanContentScroll="True" Foreground="#FF080808" Background="#FF868D57" BorderThickness="1" Grid.Column="1" Opacity="0.7" SelectionBrush="#FF3EF109" BorderBrush="{x:Null}" Grid.ColumnSpan="2" Text="Введите задачу" GotFocus="textInput_GotFocus" FontStyle="Italic"   >
+        <TextBox x:Name="textInput" HorizontalAlignment="Left" Height="31" Margin="68,584,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" ScrollViewer.CanContentScroll="True" Foreground="#FF080808" Background="#FF868D57" BorderThickness="1" Grid.Column="1" Opacity="0.7" SelectionBrush="#FF3EF109" BorderBrush="{x:Null}" Grid.ColumnSpan="2" Text="Введите задачу" GotFocus="textInput_GotFocus" FontStyle="Italic" KeyUp="textInput_KeyUp"   >
             <TextBox.CaretBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="1"/>
@@ -41,7 +41,7 @@
         <ScrollViewer HorizontalAlignment="Left" Height="470" Margin="68,88,0,0" VerticalAlignment="Top" Width="400" CanContentScroll="True" Grid.IsSharedSizeScope="True" Grid.Column="1" Grid.ColumnSpan="2" Foreground="#FF0F23A4">
             <StackPanel x:Name="panel" HorizontalAlignment="Left" Height="470" VerticalAlignment="Top" Width="400" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Grid.IsSharedSizeScope="True" CanVerticallyScroll="True" CanHorizontallyScroll="True" MouseDown="panel_MouseDown"/>
         </ScrollViewer>
-        <Button x:Name="buttonChanges" Content="Изменить" HorizontalAlignment="Left" Margin="148,584,0,0" VerticalAlignment="Top" Width="88" Click="Button_Click_2" Grid.Column="2" Height="31" Background="#FF868D57" Opacity="0.7" FontSize="14" FontFamily="Trebuchet MS" Visibility="Hidden"/>
+        <Button x:Name="buttonChanges" Content="Изменить" HorizontalAlignment="Left" Margin="148,584,0,0" VerticalAlignment="Top" Width="88" Click="buttonChanges_Click" Grid.Column="2" Height="31" Background="#FF868D57" Opacity="0.7" FontSize="14" FontFamily="Trebuchet MS" Visibility="Hidden"/>
         <ComboBox x:Name="combobox" Grid.Column="1" HorizontalAlignment="Left" Margin="186,50,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.5,0.5" SelectionChanged="ComboBox_SelectionChanged" BorderBrush="#FF878D55" Grid.ColumnSpan="2">
             <ComboBox.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">

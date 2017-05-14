@@ -222,8 +222,8 @@ namespace ToDoList
             DatePicker1.Text = DateTime.Now.ToString();
             dat2.SelectedDate = DateTime.Now.Date;
             WriteList(ReedOfFileInArray(records));
-            dat2.SelectedDateChanged += ComboBox_SelectionChanged; 
-
+            dat2.SelectedDateChanged += ComboBox_SelectionChanged;
+            
             }
 
 
@@ -275,13 +275,14 @@ namespace ToDoList
                     StrChe = ((TextBox)e.OriginalSource).Text;
                                 textInput.Text = ((TextBox)e.OriginalSource).Text;
                 }
+            
 
             
 
             }
-        
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+
+        private void buttonChanges_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Вы точно хотите изменить  запись?", "Редактирование", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
             {
@@ -381,6 +382,16 @@ namespace ToDoList
         private void closedBut_Click(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);
+        }
+
+        private void textInput_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                if (buttonChanges.Visibility == Visibility.Hidden)
+                    ButtonAdd_Click(this, e);
+                else
+                    buttonChanges_Click(this, e);
+    
         }
 
         
