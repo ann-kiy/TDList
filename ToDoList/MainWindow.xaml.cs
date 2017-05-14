@@ -373,8 +373,15 @@ namespace ToDoList
             textInput.Text = "Введите задачу";
         }
 
-        
+     
 
+        private void closedBut_Click(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        
+        
     
        
 
