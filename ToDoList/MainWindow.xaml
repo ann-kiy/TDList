@@ -21,7 +21,7 @@
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
 
-        <Button x:Name="ButtonAdd"  Content="Добавить" HorizontalAlignment="Right" Height="31" Margin="0,584,66,0" VerticalAlignment="Top" Width="88" Click="Button_Click" Grid.Column="2" FontFamily="Trebuchet MS" FontSize="17" Background="#FF858A54" Opacity="0.7" ClipToBounds="True" SnapsToDevicePixels="True">
+        <Button x:Name="ButtonAdd"  Content="Добавить" HorizontalAlignment="Right" Height="31" Margin="0,584,66,0" VerticalAlignment="Top" Width="88" Click="ButtonAdd_Click" Grid.Column="2" FontFamily="Trebuchet MS" FontSize="17" Background="#FF858A54" Opacity="0.7" ClipToBounds="True" SnapsToDevicePixels="True">
             <Button.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF1D6418" Offset="0"/>

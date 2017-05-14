@@ -185,11 +185,9 @@ namespace ToDoList
 
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            
-            combobox.SelectedIndex = -1;
-
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        {         
+           
             if ((DatePicker1.SelectedDate >= DateTime.Now.Date) && (textInput.Text != "") && (textInput.Text != "Введите задачу"))
             {
                
@@ -198,11 +196,11 @@ namespace ToDoList
                 panel.Children.Clear();
                 WriteList(ReedOfFileInArray(records));
                 textInput.Text = "";
+                Sorting();
             }
             else MessageBox.Show("Введите коректные данные!");
             textInput.Text = "Введите задачу";
-
-
+           
         }
 
 
@@ -224,7 +222,7 @@ namespace ToDoList
             DatePicker1.Text = DateTime.Now.ToString();
             dat2.SelectedDate = DateTime.Now.Date;
             WriteList(ReedOfFileInArray(records));
-            dat2.SelectedDateChanged += ComboBox_SelectionChanged;
+            dat2.SelectedDateChanged += ComboBox_SelectionChanged; 
 
             }
 
@@ -336,11 +334,9 @@ namespace ToDoList
             icon.Visible = false;
             
         }
-
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        void Sorting() 
         {
-            if (combobox.SelectedIndex == 1)
+             if (combobox.SelectedIndex == 1)
             {
                 textBox.Clear();
                 label.Clear();
@@ -354,6 +350,12 @@ namespace ToDoList
                 records = records.OrderBy(u1 => u1.date).ToList();
                 WriteList(records);
             }
+        }
+
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Sorting();
 
         }
 
