@@ -37,7 +37,8 @@ namespace ToDoList
 
         ArrayList textBox = new ArrayList();
         ArrayList label = new ArrayList();
-        int coutRecords = 0, tabTexBox = 1;
+        public int coutRecords = 0;
+        int tabTexBox = 1;
         string StrChe;
         List<Record> records = new List<Record>();
         Record task = new Record();
@@ -101,17 +102,19 @@ namespace ToDoList
 
         }
 
-        void FileWrite(string text, string date)
+        public void FileWrite(string text, string date)
         {
-
             FileStream file = new FileStream("../../dataBase.txt", FileMode.Append, FileAccess.Write);
-            StreamWriter writer = new StreamWriter(file);
-            writer.WriteLine(text + "/" + date);
-            writer.Close();
-
+            if (!File.Exists("../../dataBase.txt")) { throw new Exception("file does not exist"); }
+            else
+            {
+                StreamWriter writer = new StreamWriter(file);
+                writer.WriteLine(text + "/" + date);
+                writer.Close();
+            }
         }
 
-        DateTime StringToDate(string str)
+        public DateTime StringToDate(string str)
         {
 
             return new DateTime(int.Parse((str.Split('/')[1]).Split('.')[2].Split(' ')[0]), int.Parse((str.Split('/')[1]).Split('.')[1]), int.Parse((str.Split('/')[1]).Split('.')[0]));
@@ -119,7 +122,7 @@ namespace ToDoList
         }
 
 
-        List<Record> ReedOfFileInArray(List<Record> usr){
+        public List<Record> ReedOfFileInArray(List<Record> usr){
 
             FileStream file = new FileStream("../../dataBase.txt", FileMode.OpenOrCreate, FileAccess.Read);
             StreamReader read = new StreamReader(file);

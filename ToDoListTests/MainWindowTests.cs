@@ -16,7 +16,7 @@ namespace ToDoList.Tests
         static Random rn = new Random();
         static int RandomNumber = rn.Next(0, 5000);
 
-        string date = "10.10.2017 12:00:00 AM";
+        string date = "10.10.2017 0:00:00";
 
         [TestMethod()]
         public void FileExistenceTest()
@@ -38,6 +38,8 @@ namespace ToDoList.Tests
             List<Record> tr = new List<Record>();
             t.ReedOfFileInArray(tr);
             string recieved = tr[t.coutRecords - 1].text + "/" + tr[t.coutRecords - 1].date;
+            MessageBox.Show(date);
+            MessageBox.Show(t.StringToDate(recieved).ToString());
             if (t.StringToDate(recieved).ToString() != date) Assert.Fail("Error: returned date is wrong");
 
         }
