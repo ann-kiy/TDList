@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
+
 namespace ToDoList
 {
     /// <summary>
@@ -28,6 +29,7 @@ namespace ToDoList
         int top;
         DependencyProperty prop;
         int end;
+        const ushort intermediateTime = 10;
         System.Windows.Forms.NotifyIcon icon = new System.Windows.Forms.NotifyIcon();
 
         ArrayList textBox = new ArrayList();
@@ -44,13 +46,16 @@ namespace ToDoList
             anim = new DoubleAnimation(end, TimeSpan.FromSeconds(1));
             icon.Icon = new System.Drawing.Icon("../../50-512.ico");
         }
-        
+
 
         private void timerTick(object sender, EventArgs e)
         {
-            this.Close();
-            timer.Stop();
-          
+
+           
+                this.Close();
+                timer.Stop();
+            
+
         }
 
 
@@ -71,12 +76,12 @@ namespace ToDoList
             ((TextBox)textBox[i]).SelectionBrush = Brushes.White;
             ((TextBox)textBox[i]).BorderThickness = new Thickness(2, 2, 2, 2);
             ((TextBox)textBox[i]).IsReadOnly = true;
-            ((TextBox)textBox[i]).Opacity = 0.8;            
+            ((TextBox)textBox[i]).Opacity = 0.8;
             panel.Children.Add(((TextBox)textBox[i]));
         }
         void WriteList(List<Record> usr)
         {
-            
+
             int j = 0;
 
             foreach (Record t in usr)
@@ -84,9 +89,9 @@ namespace ToDoList
                 if (t.date == DateTime.Now.Date)
                 {
 
-                   
+
                     AddTextBox(j, textBox, 1, 1);
-                   ((TextBox)textBox[j]).Text = t.text;
+                    ((TextBox)textBox[j]).Text = t.text;
                     j++;
                 }
 
@@ -101,11 +106,11 @@ namespace ToDoList
             AnimationClock clock = anim.CreateClock();
             this.ApplyAnimationClock(prop, clock);
             records = DataRecord.Value;
-            WriteList(records);      
-           timer.Tick += new EventHandler(timerTick);
-           timer.Interval = new TimeSpan(0, 0, 10);
-           timer.Start();  
-           
+            WriteList(records);
+            timer.Tick += new EventHandler(timerTick);
+            timer.Interval = new TimeSpan(0, 0, intermediateTime);
+            timer.Start();
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -118,8 +123,23 @@ namespace ToDoList
         {
             timer.Stop();
             this.Close();
-           
+
         }
-      
+
+        private void Window_MouseUp(object sender, EventArgs e)
+        {
+            this.Close();
+            App.Current.MainWindow.Show();
+            
+
+        }
+
+       
+
+
+    
+
+
+
     }
 }
