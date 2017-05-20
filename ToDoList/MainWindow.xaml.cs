@@ -30,7 +30,7 @@ namespace ToDoList
     {
        public DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
        System.Windows.Forms.NotifyIcon icon = new System.Windows.Forms.NotifyIcon();
-       const ushort intermediateTime = 900;
+       const ushort intermediateTime = 30;
         DoubleAnimation anim;
         int left;
         int top;
@@ -216,6 +216,8 @@ namespace ToDoList
 
         private void MyGrid_Loaded(object sender, RoutedEventArgs e)
         {
+            timer.Tick += new EventHandler(timerTick);
+            timer.Interval = new TimeSpan(0, 0, intermediateTime);
             timer.Stop();
             AnimationClock clock = anim.CreateClock();
             this.ApplyAnimationClock(prop, clock);
@@ -266,20 +268,14 @@ namespace ToDoList
                 }
             else if (e.Key == Key.F12)
             {
-
-                            MessageBox.Show(indexSelectTextBox(((TextBox)e.OriginalSource).Text).ToString());
-
-                            DatePicker1.Text = (records.Find(u1 => u1.text == ((TextBox)e.OriginalSource).Text).date).ToString();
-                            ButtonAdd.Visibility = Visibility.Hidden;
-                            buttonChanges.Visibility = Visibility.Visible;
+                    DatePicker1.Text = (records.Find(u1 => u1.text == ((TextBox)e.OriginalSource).Text).date).ToString();
+                    ButtonAdd.Visibility = Visibility.Hidden;
+                    buttonChanges.Visibility = Visibility.Visible;
                     StrChe = ((TextBox)e.OriginalSource).Text;
-                                textInput.Text = ((TextBox)e.OriginalSource).Text;
-                }
-            
+                    textInput.Text = ((TextBox)e.OriginalSource).Text;
+                }          
 
-            
-
-            }
+        }
 
 
         private void buttonChanges_Click(object sender, RoutedEventArgs e)
@@ -311,20 +307,22 @@ namespace ToDoList
 
         private void Window_StateChanged(object sender, EventArgs e)
         {
-
             icon.Visible = true;
             icon.Click += (sndr, args) =>
             {
                 this.Show();
-                    icon.Visible = false;
+                icon.Visible = false;
                 this.WindowState = WindowState.Normal;
+                timer.Stop();
             };
-            this.Hide();
-                timer.Tick += new EventHandler(timerTick);
-                timer.Interval = new TimeSpan(0, 0, intermediateTime);
-                timer.Start();
-                if (this.WindowState == WindowState.Normal)
-                    timer.Stop();
+            this.Hide();           
+            timer.Start();
+           
+           
+               
+                
+                    
+               
            
            
         }
@@ -394,26 +392,31 @@ namespace ToDoList
     
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ButtonHide_Click(object sender, RoutedEventArgs e)
         {
             Window_StateChanged(this, e);
+           // timer.Start();
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
-        
-    
-       
-
-       
-
-       
-
-
-
-
-
-  
-
     }
 
  
