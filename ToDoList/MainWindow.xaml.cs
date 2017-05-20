@@ -16,9 +16,7 @@ using System.IO;
 using System.Collections;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
-
-
-
+using System.Media;
 
 namespace ToDoList
 {
@@ -53,6 +51,9 @@ namespace ToDoList
             this.Left = left;
             anim = new DoubleAnimation(end, TimeSpan.FromSeconds(1));
             icon.Icon = new System.Drawing.Icon("../../50-512.ico");
+            SoundPlayer player = new SoundPlayer("../../sounds/paper.wav");
+            player.Load();
+            player.Play();
 
         }
 
@@ -132,7 +133,7 @@ namespace ToDoList
                 task.text = str.Split('/')[0];
                 usr.Add(task);
                 task = new Record();
-                coutRecords++;            
+                        coutRecords++;            
                
             }
             read.Close();
@@ -186,8 +187,8 @@ namespace ToDoList
 
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
-        {         
-           
+        {
+
             if ((DatePicker1.SelectedDate >= DateTime.Now.Date) && (textInput.Text != "") && (textInput.Text != "Введите задачу"))
             {
                
@@ -196,11 +197,14 @@ namespace ToDoList
                 panel.Children.Clear();
                 WriteList(ReedOfFileInArray(records));
                 textInput.Text = "";
+                SoundPlayer player = new SoundPlayer("../../sounds/pencil.wav");
+                player.Load();
+                player.Play();
                 Sorting();
             }
             else MessageBox.Show("Введите коректные данные!");
             textInput.Text = "Введите задачу";
-           
+
         }
 
 
@@ -225,7 +229,7 @@ namespace ToDoList
             dat2.SelectedDate = DateTime.Now.Date;
             WriteList(ReedOfFileInArray(records));
             dat2.SelectedDateChanged += ComboBox_SelectionChanged;
-            
+
             }
 
 
@@ -262,21 +266,24 @@ namespace ToDoList
                     ClearDate();
                     panel.Children.Clear();
                             WriteList(ReedOfFileInArray(records));
+                    SoundPlayer player = new SoundPlayer("../../sounds/delete.wav");
+                    player.Load();
+                    player.Play();
                 }
                 combobox.SelectedIndex = -1;
 
                 }
             else if (e.Key == Key.F12)
             {
-                    DatePicker1.Text = (records.Find(u1 => u1.text == ((TextBox)e.OriginalSource).Text).date).ToString();
-                    ButtonAdd.Visibility = Visibility.Hidden;
-                    buttonChanges.Visibility = Visibility.Visible;
+                            DatePicker1.Text = (records.Find(u1 => u1.text == ((TextBox)e.OriginalSource).Text).date).ToString();
+                            ButtonAdd.Visibility = Visibility.Hidden;
+                            buttonChanges.Visibility = Visibility.Visible;
                     StrChe = ((TextBox)e.OriginalSource).Text;
-                    textInput.Text = ((TextBox)e.OriginalSource).Text;
-                }          
+                                textInput.Text = ((TextBox)e.OriginalSource).Text;
+                }
 
-        }
-
+            }
+        
 
         private void buttonChanges_Click(object sender, RoutedEventArgs e)
         {
@@ -311,12 +318,12 @@ namespace ToDoList
             icon.Click += (sndr, args) =>
             {
                 this.Show();
-                icon.Visible = false;
+                    icon.Visible = false;
                 this.WindowState = WindowState.Normal;
                 timer.Stop();
             };
-            this.Hide();           
-            timer.Start();
+            this.Hide();
+                timer.Start();
            
            
                
@@ -336,7 +343,7 @@ namespace ToDoList
 
         void Sorting() 
         {
-             if (combobox.SelectedIndex == 1)
+            if (combobox.SelectedIndex == 1)
             {
                 textBox.Clear();
                 label.Clear();
@@ -375,7 +382,7 @@ namespace ToDoList
             textInput.Text = "Введите задачу";
         }
 
-     
+      
 
         private void closedBut_Click(object sender, RoutedEventArgs e)
         {
@@ -403,7 +410,7 @@ namespace ToDoList
 
 
 
-
+  
 
 
 
@@ -421,4 +428,3 @@ namespace ToDoList
 
  
 }
-

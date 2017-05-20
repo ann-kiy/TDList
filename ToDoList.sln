@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Windows Desktop
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoList", "ToDoList\ToDoList.csproj", "{7E9ED4D5-6A39-4126-81B1-1F758AFB6617}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoListTests", "ToDoListTests\ToDoListTests.csproj", "{4B4A06A3-8957-42B3-BAE0-4AABB2137E1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +17,10 @@ Global
 		{7E9ED4D5-6A39-4126-81B1-1F758AFB6617}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E9ED4D5-6A39-4126-81B1-1F758AFB6617}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E9ED4D5-6A39-4126-81B1-1F758AFB6617}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B4A06A3-8957-42B3-BAE0-4AABB2137E1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B4A06A3-8957-42B3-BAE0-4AABB2137E1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B4A06A3-8957-42B3-BAE0-4AABB2137E1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B4A06A3-8957-42B3-BAE0-4AABB2137E1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
