@@ -96,7 +96,7 @@ namespace ToDoList
             ((Label)label[i]).FontSize = 12;
             ((Label)label[i]).FontWeight = FontWeights.Bold;
             ((Label)label[i]).Foreground = Brushes.Gray;
-            ((Label)label[i]).Content = "———————————" + date + " ———————————";
+            ((Label)label[i]).Content = "————————————" + date + " ———————————";
             panel.Children.Add(((Label)label[i]));
 
 
