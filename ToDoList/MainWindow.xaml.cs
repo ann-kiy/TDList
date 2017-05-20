@@ -28,7 +28,7 @@ namespace ToDoList
     {
        public DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
        System.Windows.Forms.NotifyIcon icon = new System.Windows.Forms.NotifyIcon();
-       const ushort intermediateTime = 15;
+       const ushort intermediateTime = 30;
         DoubleAnimation anim;
         int left;
         int top;
@@ -42,7 +42,7 @@ namespace ToDoList
         string StrChe;
         List<Record> records = new List<Record>();
         Record task = new Record();
-
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -60,7 +60,7 @@ namespace ToDoList
 
 
 
-
+       
         void AddTextBox(int i, ArrayList textBox, int h, int l)
         {
 
@@ -73,13 +73,14 @@ namespace ToDoList
             ((TextBox)textBox[i]).Margin = new Thickness(h, l, 0, 0);
             ((TextBox)textBox[i]).VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             ((TextBox)textBox[i]).KeyUp += textBox1_KeyUp;
+            ((TextBox)textBox[i]).GotFocus += text_GotFocus;
             ((TextBox)textBox[i]).BorderBrush = new SolidColorBrush();
-            ((TextBox)textBox[i]).SelectionBrush = Brushes.White;
+            ((TextBox)textBox[i]).SelectionBrush = Brushes.White;           
             ((TextBox)textBox[i]).BorderThickness = new Thickness(2, 2, 2, 2);
             ((TextBox)textBox[i]).FontFamily = new FontFamily("Arial");
             ((TextBox)textBox[i]).FontSize = 14;
             ((TextBox)textBox[i]).Padding = new Thickness(3, 3, 3, 3);
-            ((TextBox)textBox[i]).IsReadOnly = true;
+            ((TextBox)textBox[i]).IsReadOnly = true;                   
             ((TextBox)textBox[i]).Opacity = 0.7;
             ((TextBox)textBox[i]).ToolTip = "Для удаления нажмите кнопку <Del>, для редактирования кнопку <F12>";
             panel.Children.Add(((TextBox)textBox[i]));
@@ -96,7 +97,7 @@ namespace ToDoList
             ((Label)label[i]).FontSize = 12;
             ((Label)label[i]).FontWeight = FontWeights.Bold;
             ((Label)label[i]).Foreground = Brushes.Gray;
-            ((Label)label[i]).Content = "———————————" + date + " ———————————";
+            ((Label)label[i]).Content = "————————————" + date + " ———————————";
             panel.Children.Add(((Label)label[i]));
 
 
@@ -136,8 +137,8 @@ namespace ToDoList
                 task.text = str.Split('/')[0];
                 usr.Add(task);
                 task = new Record();
-                        coutRecords++;
-
+                        coutRecords++;            
+               
             }
             read.Close();
             DataRecord.Value = usr;
@@ -189,24 +190,24 @@ namespace ToDoList
 
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            combobox.SelectedIndex = -1;
 
-            if ((DatePicker1.SelectedDate >= DateTime.Now.Date) && (textInput.Text != ""))
+            if ((DatePicker1.SelectedDate >= DateTime.Now.Date) && (textInput.Text != "") && (textInput.Text != "Введите задачу"))
             {
-
+               
                 ClearDate();
-                FileWrite(textInput.Text, DatePicker1.Text.ToString());
+                FileWrite(textInput.Text, DatePicker1.Text.ToString());                
                 panel.Children.Clear();
                 WriteList(ReedOfFileInArray(records));
                 textInput.Text = "";
                 SoundPlayer player = new SoundPlayer("../../sounds/pencil.wav");
                 player.Load();
                 player.Play();
+                Sorting();
             }
             else MessageBox.Show("Введите коректные данные!");
-
+            textInput.Text = "Введите задачу";
 
         }
 
@@ -215,28 +216,31 @@ namespace ToDoList
 
         private void timerTick(object sender, EventArgs e)
         {
-
-           new Window1().Show();
-
+            if ((records.FindAll(u1 => u1.date == DateTime.Now.Date)).Count!=0)
+           new Window1().Show();      
+           
         }
 
 
         private void MyGrid_Loaded(object sender, RoutedEventArgs e)
         {
+            timer.Tick += new EventHandler(timerTick);
+            timer.Interval = new TimeSpan(0, 0, intermediateTime);
             timer.Stop();
             AnimationClock clock = anim.CreateClock();
             this.ApplyAnimationClock(prop, clock);
             DatePicker1.Text = DateTime.Now.ToString();
-            dat2.SelectedDate = DateTime.Now;
+            dat2.SelectedDate = DateTime.Now.Date;
             WriteList(ReedOfFileInArray(records));
+            dat2.SelectedDateChanged += ComboBox_SelectionChanged;
 
             }
 
 
-        int indexSelectTextBox(string str)
+        int indexSelectTextBox(string str) 
         {
 
-            return (records.IndexOf((records.Find(u1 => u1.text == str))));
+            return (records.IndexOf((records.Find(u1 => u1.text == str)))); 
 
         }
 
@@ -265,7 +269,7 @@ namespace ToDoList
                     writer.Close();
                     ClearDate();
                     panel.Children.Clear();
-                    WriteList(ReedOfFileInArray(records));
+                            WriteList(ReedOfFileInArray(records));
                     SoundPlayer player = new SoundPlayer("../../sounds/delete.wav");
                     player.Load();
                     player.Play();
@@ -274,25 +278,22 @@ namespace ToDoList
 
                 }
             else if (e.Key == Key.F12)
-            {
-
-                            MessageBox.Show(indexSelectTextBox(((TextBox)e.OriginalSource).Text).ToString());
-
-                            DatePicker1.Text = (records.Find(u1 => u1.text == ((TextBox)e.OriginalSource).Text).date).ToString();
-                            ButtonAdd.Visibility = Visibility.Hidden;
-                            buttonChanges.Visibility = Visibility.Visible;
-                    StrChe = ((TextBox)e.OriginalSource).Text;
-                                textInput.Text = ((TextBox)e.OriginalSource).Text;
+                if (MessageBox.Show("Вы точно хотите изменить  запись?", "Редактирование", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
+                {
+                    {
+                        DatePicker1.Text = (records.Find(u1 => u1.text == ((TextBox)e.OriginalSource).Text).date).ToString();
+                        ButtonAdd.Visibility = Visibility.Hidden;
+                        buttonChanges.Visibility = Visibility.Visible;
+                        StrChe = ((TextBox)e.OriginalSource).Text;
+                        textInput.Text = ((TextBox)e.OriginalSource).Text;
+                    }
                 }
-
-
-
             }
+        
 
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void buttonChanges_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Вы точно хотите изменить  запись?", "Редактирование", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
+            if (MessageBox.Show("Редактировать?", "Редактирование", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
             {
 
                 FileStream file = new FileStream("../../dataBase.txt", FileMode.Create, FileAccess.Write);
@@ -311,7 +312,7 @@ namespace ToDoList
                 ClearDate();
                 panel.Children.Clear();
                 WriteList(ReedOfFileInArray(records));
-                textInput.Text = "";
+                textInput.Text = "Введите задачу";
                 combobox.SelectedIndex = -1;
             }
 
@@ -319,33 +320,34 @@ namespace ToDoList
 
         private void Window_StateChanged(object sender, EventArgs e)
         {
-
             icon.Visible = true;
             icon.Click += (sndr, args) =>
             {
                 this.Show();
                     icon.Visible = false;
                 this.WindowState = WindowState.Normal;
+                timer.Stop();
             };
             this.Hide();
-                timer.Tick += new EventHandler(timerTick);
-                timer.Interval = new TimeSpan(0, 0, intermediateTime);
                 timer.Start();
-                if (this.WindowState == WindowState.Normal)
-                    timer.Stop();
-
-
+           
+           
+               
+                
+                    
+               
+           
+           
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             base.OnClosing(e);
             icon.Visible = false;
-
+            
         }
 
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        void Sorting() 
         {
             if (combobox.SelectedIndex == 1)
             {
@@ -361,15 +363,59 @@ namespace ToDoList
                 records = records.OrderBy(u1 => u1.date).ToList();
                 WriteList(records);
             }
-
         }
 
 
-
-        private void dat2_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (combobox.SelectedIndex == 1)
-                dat2.SelectedDateChanged += ComboBox_SelectionChanged;
+            Sorting();
+
+        }
+
+
+
+
+        private void textInput_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (textInput.Text == "Введите задачу")
+                textInput.Text = "";
+        }
+
+        private void text_GotFocus(object sender, RoutedEventArgs e)
+        {
+            ButtonAdd.Visibility = Visibility.Visible;
+            buttonChanges.Visibility = Visibility.Hidden;
+            textInput.Text = "Введите задачу";
+        }
+
+        
+
+        private void panel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            textInput.Text = "Введите задачу";
+        }
+
+      
+
+        private void closedBut_Click(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void textInput_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                if (buttonChanges.Visibility == Visibility.Hidden)
+                    ButtonAdd_Click(this, e);
+                else
+                    buttonChanges_Click(this, e);
+    
+        }
+
+        private void ButtonHide_Click(object sender, RoutedEventArgs e)
+        {
+            Window_StateChanged(this, e);
+           // timer.Start();
         }
 
 
@@ -377,9 +423,21 @@ namespace ToDoList
 
 
 
+  
 
 
+
+
+
+
+
+
+
+
+
+
+        
     }
 
-
+ 
 }
