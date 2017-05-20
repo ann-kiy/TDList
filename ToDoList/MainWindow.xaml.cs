@@ -72,6 +72,7 @@ namespace ToDoList
             ((TextBox)textBox[i]).Margin = new Thickness(h, l, 0, 0);
             ((TextBox)textBox[i]).VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             ((TextBox)textBox[i]).KeyUp += textBox1_KeyUp;
+            ((TextBox)textBox[i]).GotFocus += text_GotFocus;
             ((TextBox)textBox[i]).BorderBrush = new SolidColorBrush();
             ((TextBox)textBox[i]).SelectionBrush = Brushes.White;           
             ((TextBox)textBox[i]).BorderThickness = new Thickness(2, 2, 2, 2);
@@ -274,20 +275,22 @@ namespace ToDoList
 
                 }
             else if (e.Key == Key.F12)
-            {
-                            DatePicker1.Text = (records.Find(u1 => u1.text == ((TextBox)e.OriginalSource).Text).date).ToString();
-                            ButtonAdd.Visibility = Visibility.Hidden;
-                            buttonChanges.Visibility = Visibility.Visible;
-                    StrChe = ((TextBox)e.OriginalSource).Text;
-                                textInput.Text = ((TextBox)e.OriginalSource).Text;
+                if (MessageBox.Show("Вы точно хотите изменить  запись?", "Редактирование", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
+                {
+                    {
+                        DatePicker1.Text = (records.Find(u1 => u1.text == ((TextBox)e.OriginalSource).Text).date).ToString();
+                        ButtonAdd.Visibility = Visibility.Hidden;
+                        buttonChanges.Visibility = Visibility.Visible;
+                        StrChe = ((TextBox)e.OriginalSource).Text;
+                        textInput.Text = ((TextBox)e.OriginalSource).Text;
+                    }
                 }
-
             }
         
 
         private void buttonChanges_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Вы точно хотите изменить  запись?", "Редактирование", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
+            if (MessageBox.Show("Редактировать?", "Редактирование", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
             {
 
                 FileStream file = new FileStream("../../dataBase.txt", FileMode.Create, FileAccess.Write);
@@ -306,7 +309,7 @@ namespace ToDoList
                 ClearDate();
                 panel.Children.Clear();
                 WriteList(ReedOfFileInArray(records));
-                textInput.Text = "";
+                textInput.Text = "Введите задачу";
                 combobox.SelectedIndex = -1;
             }
 
@@ -373,6 +376,13 @@ namespace ToDoList
         {
             if (textInput.Text == "Введите задачу")
                 textInput.Text = "";
+        }
+
+        private void text_GotFocus(object sender, RoutedEventArgs e)
+        {
+            ButtonAdd.Visibility = Visibility.Visible;
+            buttonChanges.Visibility = Visibility.Hidden;
+            textInput.Text = "Введите задачу";
         }
 
         

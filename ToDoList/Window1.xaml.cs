@@ -29,6 +29,7 @@ namespace ToDoList
         int top;
         DependencyProperty prop;
         int end;
+        const ushort intermediateTime = 10;
         System.Windows.Forms.NotifyIcon icon = new System.Windows.Forms.NotifyIcon();
 
         ArrayList textBox = new ArrayList();
@@ -49,8 +50,11 @@ namespace ToDoList
 
         private void timerTick(object sender, EventArgs e)
         {
-            this.Close();
-            timer.Stop();
+
+           
+                this.Close();
+                timer.Stop();
+            
 
         }
 
@@ -104,7 +108,7 @@ namespace ToDoList
             records = DataRecord.Value;
             WriteList(records);
             timer.Tick += new EventHandler(timerTick);
-            timer.Interval = new TimeSpan(0, 0, 10);
+            timer.Interval = new TimeSpan(0, 0, intermediateTime);
             timer.Start();
 
         }
@@ -129,6 +133,13 @@ namespace ToDoList
             
 
         }
+
+       
+
+
+    
+
+
 
     }
 }
