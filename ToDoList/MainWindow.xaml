@@ -4,7 +4,7 @@
         
    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="Main" mc:Ignorable="d" x:Class="ToDoList.MainWindow"
         
-   Title="To Do List" Height="680.03" Width="496.134" Icon="50-512.ico" StateChanged="Window_StateChanged" ContentStringFormat="" MinHeight="679" MinWidth="523" MaxWidth="523" MaxHeight="679" AllowsTransparency="True" WindowStyle="None" Topmost="True">
+   Title="To Do List" Height="680.03" Width="496.134" Icon="50-512.ico" StateChanged="Window_StateChanged" ContentStringFormat="" MinHeight="679" MinWidth="523" MaxWidth="523" MaxHeight="679" AllowsTransparency="True" WindowStyle="None" Topmost="True" Loaded="Main_Loaded" Initialized="Main_Initialized">
     <Window.Background>
         <ImageBrush/>
     </Window.Background>
@@ -70,6 +70,11 @@
         <Button Content="ButtonHide" Grid.Column="3" HorizontalAlignment="Left" Margin="206,54,0,0" VerticalAlignment="Top" Width="22" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="ButtonHide_Click" Grid.RowSpan="2" Height="22">
             <Button.Background>
                 <ImageBrush ImageSource="w128h1281349050168packageremove.png"/>
+            </Button.Background>
+        </Button>
+        <Button Content="ButtonSettings" Grid.Column="3" HorizontalAlignment="Left" Margin="208,4,0,0" VerticalAlignment="Top" Width="22" BorderBrush="{x:Null}" Foreground="{x:Null}" Height="22" Grid.Row="1" Click="ButtonSettings_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="settings-icon-14953.png"/>
             </Button.Background>
         </Button>
 
