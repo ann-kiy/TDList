@@ -139,7 +139,6 @@ namespace ToDoList
             }
             read.Close();
             DataRecord.Value = usr;
-
             return usr;
 
         }
