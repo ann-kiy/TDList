@@ -229,6 +229,7 @@ namespace ToDoList
             dat2.SelectedDate = DateTime.Now.Date;
             WriteList(ReedOfFileInArray(records));
             dat2.SelectedDateChanged += ComboBox_SelectionChanged;
+            icon.Visible = false;
 
             }
 
@@ -316,16 +317,22 @@ namespace ToDoList
 
         private void Window_StateChanged(object sender, EventArgs e)
         {
-            icon.Visible = true;
-            icon.Click += (sndr, args) =>
-            {
-                this.Show();
+           
+                icon.Visible = true;
+                icon.Click += (sndr, args) =>
+                {
+                    this.Show();
                     icon.Visible = false;
-                this.WindowState = WindowState.Normal;
-                timer.Stop();
-            };
-            this.Hide();
+                    this.WindowState = WindowState.Normal;
+                    timer.Stop();
+                };
+                this.Hide();
+               
                 timer.Start();
+                    
+
+            
+           
            
            
                
