@@ -28,7 +28,6 @@ namespace ToDoList
     {
        public DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
        System.Windows.Forms.NotifyIcon icon = new System.Windows.Forms.NotifyIcon();
-       const ushort intermediateTime = 30;
         DoubleAnimation anim;
         int left;
         int top;
@@ -37,10 +36,13 @@ namespace ToDoList
 
         ArrayList textBox = new ArrayList();
         ArrayList label = new ArrayList();
-        int coutRecords = 0, tabTexBox = 1;
+        public int coutRecords = 0;
+        int tabTexBox = 1;
         string StrChe;
         List<Record> records = new List<Record>();
         Record task = new Record();
+        public Config config = new Config();
+        IniFile ini = new IniFile("../../config.ini");
         
         public MainWindow()
         {
@@ -51,15 +53,25 @@ namespace ToDoList
             this.Left = left;
             anim = new DoubleAnimation(end, TimeSpan.FromSeconds(1));
             icon.Icon = new System.Drawing.Icon("../../50-512.ico");
-            SoundPlayer player = new SoundPlayer("../../sounds/paper.wav");
-            player.Load();
-            player.Play();
+        }
 
+        private void Main_Initialized(object sender, EventArgs e)
+        {
+            ReadConfig();
+        }
+
+        private void Main_Loaded(object sender, RoutedEventArgs e)
+        {
+            ReadConfig();
+            if (config.sounds == true)
+            {
+                SoundPlayer player = new SoundPlayer("../../sounds/paper.wav");
+                player.Load();
+                player.Play();
+            }
         }
 
 
-
-       
         void AddTextBox(int i, ArrayList textBox, int h, int l)
         {
 
@@ -96,23 +108,25 @@ namespace ToDoList
             ((Label)label[i]).FontSize = 12;
             ((Label)label[i]).FontWeight = FontWeights.Bold;
             ((Label)label[i]).Foreground = Brushes.Gray;
-            ((Label)label[i]).Content = "———————————" + date + " ———————————";
+            ((Label)label[i]).Content = "————————————" + date + " ———————————";
             panel.Children.Add(((Label)label[i]));
 
 
         }
 
-        void FileWrite(string text, string date)
+        public void FileWrite(string text, string date)
         {
-
             FileStream file = new FileStream("../../dataBase.txt", FileMode.Append, FileAccess.Write);
-            StreamWriter writer = new StreamWriter(file);
-            writer.WriteLine(text + "/" + date);
-            writer.Close();
-
+            if (!File.Exists("../../dataBase.txt")) { throw new Exception("file does not exist"); }
+            else
+            {
+                StreamWriter writer = new StreamWriter(file);
+                writer.WriteLine(text + "/" + date);
+                writer.Close();
+            }
         }
 
-        DateTime StringToDate(string str)
+        public DateTime StringToDate(string str)
         {
 
             return new DateTime(int.Parse((str.Split('/')[1]).Split('.')[2].Split(' ')[0]), int.Parse((str.Split('/')[1]).Split('.')[1]), int.Parse((str.Split('/')[1]).Split('.')[0]));
@@ -120,7 +134,7 @@ namespace ToDoList
         }
 
 
-        List<Record> ReedOfFileInArray(List<Record> usr){
+        public List<Record> ReedOfFileInArray(List<Record> usr){
 
             FileStream file = new FileStream("../../dataBase.txt", FileMode.OpenOrCreate, FileAccess.Read);
             StreamReader read = new StreamReader(file);
@@ -197,9 +211,12 @@ namespace ToDoList
                 panel.Children.Clear();
                 WriteList(ReedOfFileInArray(records));
                 textInput.Text = "";
-                SoundPlayer player = new SoundPlayer("../../sounds/pencil.wav");
-                player.Load();
-                player.Play();
+                if (config.sounds == true)
+                {
+                    SoundPlayer player = new SoundPlayer("../../sounds/pencil.wav");
+                    player.Load();
+                    player.Play();
+                }
                 Sorting();
             }
             else MessageBox.Show("Введите коректные данные!");
@@ -221,7 +238,7 @@ namespace ToDoList
         private void MyGrid_Loaded(object sender, RoutedEventArgs e)
         {
             timer.Tick += new EventHandler(timerTick);
-            timer.Interval = new TimeSpan(0, 0, intermediateTime);
+            timer.Interval = new TimeSpan(0, 0, Convert.ToUInt16(config.time));
             timer.Stop();
             AnimationClock clock = anim.CreateClock();
             this.ApplyAnimationClock(prop, clock);
@@ -267,9 +284,12 @@ namespace ToDoList
                     ClearDate();
                     panel.Children.Clear();
                             WriteList(ReedOfFileInArray(records));
-                    SoundPlayer player = new SoundPlayer("../../sounds/delete.wav");
-                    player.Load();
-                    player.Play();
+                    if (config.sounds == true)
+                    {
+                        SoundPlayer player = new SoundPlayer("../../sounds/delete.wav");
+                        player.Load();
+                        player.Play();
+                    }
                 }
                 combobox.SelectedIndex = -1;
 
@@ -421,25 +441,18 @@ namespace ToDoList
            // timer.Start();
         }
 
+        public void ReadConfig()
+        {
+            config.sounds = Convert.ToBoolean(ini.IniReadValue("main", "sounds", "true"));
+            config.time = Convert.ToInt16(ini.IniReadValue("main", "time", "15"));
+            //*return config;
+        }
 
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-        
+        private void ButtonSettings_Click(object sender, RoutedEventArgs e)
+        {
+            Settings setWin = new Settings();
+            setWin.Show();
+        }
     }
 
  
