@@ -38,8 +38,8 @@ namespace ToDoList.Tests
             List<Record> tr = new List<Record>();
             t.ReedOfFileInArray(tr);
             string recieved = tr[t.coutRecords - 1].text + "/" + tr[t.coutRecords - 1].date;
-            MessageBox.Show(date);
-            MessageBox.Show(t.StringToDate(recieved).ToString());
+            /*MessageBox.Show(date);
+            MessageBox.Show(t.StringToDate(recieved).ToString());*/
             if (t.StringToDate(recieved).ToString() != date) Assert.Fail("Error: returned date is wrong");
 
         }
