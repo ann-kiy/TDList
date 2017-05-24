@@ -124,6 +124,7 @@ namespace ToDoList
                 writer.WriteLine(text + "/" + date);
                 writer.Close();
             }
+            file.Close();
         }
 
         public DateTime StringToDate(string str)
@@ -438,21 +439,22 @@ namespace ToDoList
         private void ButtonHide_Click(object sender, RoutedEventArgs e)
         {
             Window_StateChanged(this, e);
-           // timer.Start();
+           
         }
 
         public void ReadConfig()
         {
             config.sounds = Convert.ToBoolean(ini.IniReadValue("main", "sounds", "true"));
             config.time = Convert.ToInt16(ini.IniReadValue("main", "time", "15"));
-            //*return config;
+           
         }
 
         private void ButtonSettings_Click(object sender, RoutedEventArgs e)
         {
-            Settings setWin = new Settings();
-            setWin.Show();
+             new Settings().Show();
         }
+
+       
     }
 
  

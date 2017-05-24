@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoList"
         mc:Ignorable="d"
-        Title="Settings" Height="139.45" Width="304.587" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Initialized="Window_Initialized">
+        Title="Настройки" Height="139.45" Width="304.587" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Initialized="Window_Initialized">
     <Grid>
         <CheckBox x:Name="sounds_CB" Content="Использовать звуковое сопровождение" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="popup_time" HorizontalAlignment="Left" Height="23" Margin="10,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="26"/>
