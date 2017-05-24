@@ -16,7 +16,7 @@ namespace ToDoList.Tests
         static Random rn = new Random();
         static int RandomNumber = rn.Next(0, 5000);
 
-        string date = "10.10.2017 0:00:00";
+        string date = "10.10.2017 12:00:00 AM";
 
         [TestMethod()]
         public void FileExistenceTest()
