@@ -16,7 +16,7 @@ namespace ToDoList.Tests
         static Random rn = new Random();
         static int RandomNumber = rn.Next(0, 5000);
 
-        string date = "10/10/2017 12:00:00 AM";
+        string date = "10.10.2017 0:00:00";
 
         [TestMethod()]
         public void FileExistenceTest()
@@ -35,9 +35,10 @@ namespace ToDoList.Tests
         [TestMethod()]
         public void StringToDateTest()
         {
+            t.FileWrite(RandomNumber.ToString(), "10.10.2017");
             List<Record> tr = new List<Record>();
             t.ReedOfFileInArray(tr);
-            string recieved = tr[t.coutRecords - 1].text + "/" + tr[t.coutRecords - 1].date;
+            string recieved = tr[tr.Count - 1].text + "/" + tr[tr.Count - 1].date.ToString();
             /*MessageBox.Show(date);
             MessageBox.Show(t.StringToDate(recieved).ToString());*/
             if (t.StringToDate(recieved).ToString() != date) Assert.Fail("Error: returned date is wrong");
@@ -49,10 +50,10 @@ namespace ToDoList.Tests
         {
             List<Record> tr = new List<Record>();
             t.ReedOfFileInArray(tr);
-           /* MessageBox.Show(RandomNumber.ToString());
-            MessageBox.Show(tr[t.coutRecords - 1].text.ToString());
-            MessageBox.Show(date);
-            MessageBox.Show(tr[t.coutRecords - 1].date.ToString());*/
+            /* MessageBox.Show(RandomNumber.ToString());
+             MessageBox.Show(tr[t.coutRecords - 1].text.ToString());
+             MessageBox.Show(date);
+             MessageBox.Show(tr[t.coutRecords - 1].date.ToString());*/
             if (tr[t.coutRecords - 1].text.ToString() != RandomNumber.ToString()) Assert.Fail("Error reading from file: wrong text");
             if (tr[t.coutRecords - 1].date.ToString() != date) Assert.Fail("Error reading from file: wrong date. Expected: " + date + " but recieved: " + tr[t.coutRecords - 1].date.ToString());
         }
