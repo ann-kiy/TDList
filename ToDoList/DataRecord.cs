@@ -13,6 +13,8 @@ namespace ToDoList
     class DataRecord
     {        
             public static List<Record> Value { get; set; }
+            public static bool flaf { get; set; }
+           
                       
     }
 }

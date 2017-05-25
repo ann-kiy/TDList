@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ToDoList;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,8 @@ namespace ToDoList
     /// </summary>
     public partial class Window1 : Window
     {
-        public DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
+        MainWindow t = new MainWindow();
+        public DispatcherTimer timerT = new System.Windows.Threading.DispatcherTimer();
         DoubleAnimation anim;
         int left;
         int top;
@@ -53,7 +55,7 @@ namespace ToDoList
 
            
                 this.Close();
-                timer.Stop();
+                timerT.Stop();
             
 
         }
@@ -107,29 +109,36 @@ namespace ToDoList
             this.ApplyAnimationClock(prop, clock);
             records = DataRecord.Value;
             WriteList(records);
-            timer.Tick += new EventHandler(timerTick);
-            timer.Interval = new TimeSpan(0, 0, intermediateTime);
-            timer.Start();
+            timerT.Tick += new EventHandler(timerTick);
+            timerT.Interval = new TimeSpan(0, 0, intermediateTime);
+            timerT.Start();
+           
 
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-            timer.Stop();
+            timerT.Stop();
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            timer.Stop();
+            timerT.Stop();
             this.Close();
 
         }
-
+        
         private void Window_MouseUp(object sender, EventArgs e)
         {
+            
             this.Close();
-            App.Current.MainWindow.Show();
+            DataRecord.flaf = true;
+            //App.Current.MainWindow.Show();
+            //App.Current.MainWindow.WindowState = WindowState.Normal;
+            t.Window_StateChanged(sender, e);
+           
+           
            
 
         }
