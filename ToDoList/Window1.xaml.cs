@@ -45,7 +45,7 @@ namespace ToDoList
             this.Top = top;
             this.Left = left;
             anim = new DoubleAnimation(end, TimeSpan.FromSeconds(1));
-            icon.Icon = new System.Drawing.Icon("../../50-512.ico");
+            icon.Icon = new System.Drawing.Icon("../../source/50-512.ico");
         }
 
 

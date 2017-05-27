@@ -4,9 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="ToDoList.Window1"
         Title="Window1" Height="300" Width="458.209" WindowStyle="None" AllowsTransparency="True" ShowInTaskbar="False" Topmost="True" MouseUp="Window_MouseUp" >
     <Window.Background>
-        <ImageBrush ImageSource="message.png"/>
+        <ImageBrush ImageSource="source/message.png"/>
     </Window.Background>
     <Grid x:Name="myGrid" Loaded="Grid_Loaded" Margin="0,0,0,45" MouseDown="Grid_MouseDown">
+        <Grid.Background>
+            <ImageBrush/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="21*"/>
             <RowDefinition Height="107*"/>
@@ -18,7 +21,7 @@
         </Grid.ColumnDefinitions>
         <Button x:Name="close" Content="Button" Grid.Column="2" HorizontalAlignment="Left" Margin="49,19,0,0" VerticalAlignment="Top" Width="27" Height="26" RenderTransformOrigin="6.943,-2.411" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_Click" Grid.RowSpan="2">
             <Button.Background>
-                <ImageBrush ImageSource="w512h5121348753302CuteBallStop.png"/>
+                <ImageBrush ImageSource="source/w512h5121348753302CuteBallStop.png"/>
             </Button.Background>
         </Button>
         <ScrollViewer  HorizontalAlignment="Left" Height="162" VerticalAlignment="Top" Width="381" Grid.ColumnSpan="2" Margin="0,26,0,0" Grid.Column="1" Grid.Row="1">

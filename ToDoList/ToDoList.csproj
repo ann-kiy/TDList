@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>50-512.ico</ApplicationIcon>
+    <ApplicationIcon>source\50-512.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -118,28 +118,28 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="50-512.ico" />
+    <Resource Include="source\50-512.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="notebook_PNG19223.png" />
+    <Resource Include="source\notebook_PNG19223.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="04405a3ac055ab396575e2d8873b7b59f6be9942.ico" />
+    <Resource Include="source\04405a3ac055ab396575e2d8873b7b59f6be9942.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="message.png" />
+    <Resource Include="source\message.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="w512h5121348753302CuteBallStop.png" />
+    <Resource Include="source\w512h5121348753302CuteBallStop.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="w128h1281349050168packageremove.png" />
+    <Resource Include="source\w128h1281349050168packageremove.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="settings-icon-14953.png" />
+    <Resource Include="source\settings-icon-14953.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="dtafalonso-android-l-settings-l.ico" />
+    <Resource Include="source\dtafalonso-android-l-settings-l.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,7 +4,7 @@
         
    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="Main" mc:Ignorable="d" x:Class="ToDoList.MainWindow"
         
-   Title="To Do List" Height="680.03" Width="496.134" Icon="50-512.ico" StateChanged="Window_StateChanged" ContentStringFormat="" MinHeight="679" MinWidth="523" MaxWidth="523" MaxHeight="679" AllowsTransparency="True" WindowStyle="None" Topmost="True" Loaded="Main_Loaded" Initialized="Main_Initialized">
+   Title="To Do List" Height="680.03" Width="496.134" Icon="source/50-512.ico" StateChanged="Window_StateChanged" ContentStringFormat="" MinHeight="679" MinWidth="523" MaxWidth="523" MaxHeight="679" AllowsTransparency="True" WindowStyle="None" Topmost="True" Loaded="Main_Loaded" Initialized="Main_Initialized">
     <Window.Background>
         <ImageBrush/>
     </Window.Background>
@@ -16,7 +16,7 @@
             <RowDefinition Height="85*"/>
         </Grid.RowDefinitions>
         <Grid.Background>
-            <ImageBrush ImageSource="notebook_PNG19223.png" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="source/notebook_PNG19223.png" Stretch="UniformToFill"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="9*"/>
@@ -63,20 +63,20 @@
         <Label Content="Сортировка" Grid.Column="1" HorizontalAlignment="Left" Margin="68,50,0,0" VerticalAlignment="Top" Width="104" FontWeight="Bold" Background="{x:Null}" Foreground="#FF878D55" FontFamily="Arial" FontSize="14" Grid.ColumnSpan="2" Grid.RowSpan="3" Height="26"/>
         <Button Content="closedBut" Grid.Column="3" HorizontalAlignment="Left" Margin="227,54,0,0" VerticalAlignment="Top" Width="22" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="closedBut_Click" Height="22" Grid.RowSpan="3" Grid.ColumnSpan="3">
             <Button.Background>
-                <ImageBrush ImageSource="w512h5121348753302CuteBallStop.png"/>
+                <ImageBrush ImageSource="source/w512h5121348753302CuteBallStop.png"/>
             </Button.Background>
         </Button>
-        <Button Content="ButtonHide" Grid.Column="3" HorizontalAlignment="Left" Margin="206,54,0,0" VerticalAlignment="Top" Width="22" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="ButtonHide_Click" Grid.RowSpan="3" Height="22">
+        <Button Content="ButtonHide" Grid.Column="3" Margin="206,54,2,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="ButtonHide_Click" Grid.RowSpan="3" Height="22">
             <Button.Background>
-                <ImageBrush ImageSource="w128h1281349050168packageremove.png"/>
+                <ImageBrush ImageSource="source/w128h1281349050168packageremove.png"/>
             </Button.Background>
         </Button>
         <Button Content="ButtonSettings" Grid.Column="1" HorizontalAlignment="Left" Margin="39,54,0,0" VerticalAlignment="Top" Width="19" BorderBrush="{x:Null}" Foreground="{x:Null}" Height="18" Click="ButtonSettings_Click" Grid.RowSpan="2" UseLayoutRounding="False">
             <Button.Background>
-                <ImageBrush ImageSource="dtafalonso-android-l-settings-l.ico"/>
+                <ImageBrush ImageSource="source/dtafalonso-android-l-settings-l.ico"/>
             </Button.Background>
         </Button>
-       
+
 
 
 
