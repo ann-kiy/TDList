@@ -72,7 +72,6 @@ namespace ToDoList
             }
         }
 
-
         void AddTextBox(int i, ArrayList textBox, int h, int l)
         {
             textBox.Add(new TextBox());
@@ -96,7 +95,6 @@ namespace ToDoList
             ((TextBox)textBox[i]).ToolTip = "Для удаления нажмите кнопку <Del>, для редактирования кнопку <F12>";
             panel.Children.Add(((TextBox)textBox[i]));
         }
-
 
         void AddLabel(int i, ArrayList textBox, int h, int l, string date)
         {
@@ -180,14 +178,60 @@ namespace ToDoList
             label.Clear();
             records.Clear();
             tabTexBox = 0;
+        }              
+
+        int indexSelectTextBox(string str) 
+        {
+            return (records.IndexOf((records.Find(u1 => u1.text == str)))); 
+        }       
+
+        void Sorting() 
+        {
+            if (combobox.SelectedIndex == 1)
+            {
+                textBox.Clear();
+                label.Clear();
+                panel.Children.Clear();
+                WriteList((records.FindAll(u1 => u1.date == dat2.SelectedDate)));
+            }
+            else if (combobox.SelectedIndex == 0)
+            {
+                panel.Children.Clear();
+                records = records.OrderBy(u1 => u1.date).ToList();
+                WriteList(records);
+            }
+        }
+
+        public void ReadConfig()
+        {
+            config.sounds = Convert.ToBoolean(ini.IniReadValue("main", "sounds", "true"));
+            config.time = Convert.ToInt16(ini.IniReadValue("main", "time", "15"));
+        }
+
+        private void timerTick(object sender, EventArgs e)
+        {
+            if (((records.FindAll(u1 => u1.date == DateTime.Now.Date)).Count != 0) && (!DataRecord.flaf))
+                new Window1().Show();
+        }
+
+        private void MyGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+            timer.Stop();
+            AnimationClock clock = anim.CreateClock();
+            this.ApplyAnimationClock(prop, clock);
+            DatePicker1.Text = DateTime.Now.ToString();
+            dat2.SelectedDate = DateTime.Now.Date;
+            WriteList(ReedOfFileInArray(records));
+            dat2.SelectedDateChanged += ComboBox_SelectionChanged;
+            icon.Visible = false;
         }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             if ((DatePicker1.SelectedDate >= DateTime.Now.Date) && (textInput.Text != "") && (textInput.Text != "Введите задачу"))
-            {               
+            {
                 ClearDate();
-                FileWrite(textInput.Text, DatePicker1.Text.ToString());                
+                FileWrite(textInput.Text, DatePicker1.Text.ToString());
                 panel.Children.Clear();
                 WriteList(ReedOfFileInArray(records));
                 textInput.Text = "";
@@ -201,31 +245,6 @@ namespace ToDoList
             }
             else MessageBox.Show("Введите коректные данные!");
             textInput.Text = "Введите задачу";
-        }
-
-        private void timerTick(object sender, EventArgs e)
-        {
-            if ((records.FindAll(u1 => u1.date == DateTime.Now.Date)).Count!=0)
-            new Window1().Show();             
-        }
-
-
-        private void MyGrid_Loaded(object sender, RoutedEventArgs e)
-        {           
-            timer.Stop();
-            AnimationClock clock = anim.CreateClock();
-            this.ApplyAnimationClock(prop, clock);
-            DatePicker1.Text = DateTime.Now.ToString();
-            dat2.SelectedDate = DateTime.Now.Date;
-            WriteList(ReedOfFileInArray(records));
-            dat2.SelectedDateChanged += ComboBox_SelectionChanged;
-            icon.Visible = false;
-        }
-
-
-        int indexSelectTextBox(string str) 
-        {
-            return (records.IndexOf((records.Find(u1 => u1.text == str)))); 
         }
 
         private void textBox1_KeyUp(object sender, KeyEventArgs e)
@@ -253,7 +272,7 @@ namespace ToDoList
                     }
                 }
                 combobox.SelectedIndex = -1;
-              }
+            }
             else if (e.Key == Key.F12)
                 if (MessageBox.Show("Вы точно хотите изменить  запись?", "Редактирование", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
                 {
@@ -265,8 +284,7 @@ namespace ToDoList
                         textInput.Text = ((TextBox)e.OriginalSource).Text;
                     }
                 }
-            }
-        
+        }
 
         private void buttonChanges_Click(object sender, RoutedEventArgs e)
         {
@@ -293,50 +311,19 @@ namespace ToDoList
             }
         }
 
-       public void Window_StateChanged(object sender, EventArgs e)
+        public void Window_StateChanged(object sender, EventArgs e)
         {
-            
-           if(DataRecord.flaf)
-           {
-               this.Show();
-               timer.Stop();
-               MessageBox.Show("111");
-               //base.OnClosing(e);
-              // icon.Visible = false;
-               //
-               DataRecord.flaf = false;
-           }
-            else
+            icon.Visible = true;
+            icon.Click += (sndr, args) =>
             {
-                icon.Visible = true;
-                icon.Click += (sndr, args) =>
-                {
-                    this.Show();
-                    icon.Visible = false;
-                    this.WindowState = WindowState.Normal;
-                    timer.Stop();
-                };
-                this.Hide();               
-                timer.Start();                
-           }           
-        }
-
-        void Sorting() 
-        {
-            if (combobox.SelectedIndex == 1)
-            {
-                textBox.Clear();
-                label.Clear();
-                panel.Children.Clear();
-                WriteList((records.FindAll(u1 => u1.date == dat2.SelectedDate)));
-            }
-            else if (combobox.SelectedIndex == 0)
-            {
-                panel.Children.Clear();
-                records = records.OrderBy(u1 => u1.date).ToList();
-                WriteList(records);
-            }
-        }
+                this.Show();
+                icon.Visible = false;
+                this.WindowState = WindowState.Normal;
+                timer.Stop();
+            };
+            this.Hide();
+            timer.Start();
+        }        
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -379,12 +366,6 @@ namespace ToDoList
         {
             Window_StateChanged(this, e);
             DataRecord.flaf = false;           
-        }
-
-        public void ReadConfig()
-        {
-            config.sounds = Convert.ToBoolean(ini.IniReadValue("main", "sounds", "true"));
-            config.time = Convert.ToInt16(ini.IniReadValue("main", "time", "15"));           
         }
 
         private void ButtonSettings_Click(object sender, RoutedEventArgs e)

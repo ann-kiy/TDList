@@ -33,7 +33,6 @@ namespace ToDoList
         int end;
         const ushort intermediateTime = 10;
         System.Windows.Forms.NotifyIcon icon = new System.Windows.Forms.NotifyIcon();
-
         ArrayList textBox = new ArrayList();
         List<Record> records = DataRecord.Value;
 
@@ -51,20 +50,13 @@ namespace ToDoList
 
 
         private void timerTick(object sender, EventArgs e)
-        {
-
-           
+        {          
                 this.Close();
                 timerT.Stop();
-            
-
         }
-
-
 
         void AddTextBox(int i, ArrayList textBox, int h, int l)
         {
-
             textBox.Add(new TextBox());
             ((TextBox)textBox[i]).HorizontalAlignment = HorizontalAlignment.Left;
             ((TextBox)textBox[i]).Height = 35;
@@ -83,15 +75,11 @@ namespace ToDoList
         }
         void WriteList(List<Record> usr)
         {
-
             int j = 0;
-
             foreach (Record t in usr)
             {
                 if (t.date == DateTime.Now.Date)
                 {
-
-
                     AddTextBox(j, textBox, 1, 1);
                     ((TextBox)textBox[j]).Text = t.text;
                     j++;
@@ -100,8 +88,6 @@ namespace ToDoList
             }
 
         }
-
-
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
@@ -112,8 +98,6 @@ namespace ToDoList
             timerT.Tick += new EventHandler(timerTick);
             timerT.Interval = new TimeSpan(0, 0, intermediateTime);
             timerT.Start();
-           
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -126,29 +110,15 @@ namespace ToDoList
         {
             timerT.Stop();
             this.Close();
-
         }
         
         private void Window_MouseUp(object sender, EventArgs e)
-        {
-            
+        {            
             this.Close();
             DataRecord.flaf = true;
-            //App.Current.MainWindow.Show();
-            //App.Current.MainWindow.WindowState = WindowState.Normal;
-            t.Window_StateChanged(sender, e);
-           
-           
-           
-
+            App.Current.MainWindow.Show();                     
+            icon.Visible = false;
         }
-
-       
-
-
-    
-
-
 
     }
 }
